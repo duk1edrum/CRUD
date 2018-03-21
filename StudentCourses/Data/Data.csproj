@@ -61,6 +61,10 @@
     <Compile Include="Migrations\201803212148472_UserDataAnnotations.Designer.cs">
       <DependentUpon>201803212148472_UserDataAnnotations.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803212221417_DataAnnotations.cs" />
+    <Compile Include="Migrations\201803212221417_DataAnnotations.Designer.cs">
+      <DependentUpon>201803212221417_DataAnnotations.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Course.cs" />
     <Compile Include="Models\CourseToStudent.cs" />
@@ -79,6 +83,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201803212148472_UserDataAnnotations.resx">
       <DependentUpon>201803212148472_UserDataAnnotations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803212221417_DataAnnotations.resx">
+      <DependentUpon>201803212221417_DataAnnotations.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
