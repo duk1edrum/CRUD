@@ -25,23 +25,36 @@ namespace StudentCourses.Controllers
 
         // GET :
         [HttpGet]
-        public ActionResult  ViewModel()
+        public ActionResult  Create()
         {
-            return View();
+            return View("CreateViewModel");
         }
         //POST:
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult ViewModel(UserViewModel userView)
+        public ActionResult Create(UserViewModel userView)
         {
             if (ModelState.IsValid)
             {
                 var result = UserMapping.ToUser(userView) ;  // implicit
-                // conversion from RegisterViewModel to User Model
+                //// conversion from RegisterViewModel to User Model
 
                 User uv = result; // see implicit conversion
                 // from User model to RegisterViewModel
+
+               // var userview = new User()
+               // {
+               //      UserId= userView.UserViewId,
+               //     Login = userView.Email,
+               //     Name = userView.Name,
+               //     LastName = userView.LastName,
+               //     Password = userView.Password
+               //
+               // };
+
+
                 db.Users.Add(uv);
+                db.UserView.Add(userView);
                 db.SaveChanges();
                 return RedirectToAction("Index");
                 
@@ -67,27 +80,27 @@ namespace StudentCourses.Controllers
         }
 
         // GET: Users/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Users/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "UserId,Name,LastName,Login,Password")] User user)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Users.Add(user);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            return View(user);
-        }
+        //public ActionResult Create()
+        //{
+        //    return View();
+        //}
+        //
+        //// POST: Users/Create
+        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        //// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Create([Bind(Include = "UserId,Name,LastName,Login,Password")] User user)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Users.Add(user);
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+        //
+        //    return View(user);
+        //}
 
         // GET: Users/Edit/5
         public ActionResult Edit(int? id)
@@ -101,7 +114,7 @@ namespace StudentCourses.Controllers
             {
                 return HttpNotFound();
             }
-            return View(user);
+            return View();
         }
 
         // POST: Users/Edit/5
@@ -109,15 +122,23 @@ namespace StudentCourses.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "UserId,Name,LastName,Login,Password")] User user)
+        public ActionResult Edit([Bind(Include = "UserId,Name,LastName,Login,Password")] UserViewModel userView)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(user).State = EntityState.Modified;
+                var result = UserMapping.ToUser(userView);  // implicit
+                // conversion from RegisterViewModel to User Model
+
+                User uv = result; // see implicit conversion
+              
+                db.Users.Add(uv);
                 db.SaveChanges();
                 return RedirectToAction("Index");
+                //db.Entry(user).State = EntityState.Modified;
+                //db.SaveChanges();
+                //return RedirectToAction("Index");
             }
-            return View(user);
+            return View(userView);
         }
 
         // GET: Users/Delete/5

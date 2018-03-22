@@ -91,6 +91,10 @@
     <Compile Include="Migrations\201803220902198_key userViewModel.Designer.cs">
       <DependentUpon>201803220902198_key userViewModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803221016367_Editing view model.cs" />
+    <Compile Include="Migrations\201803221016367_Editing view model.Designer.cs">
+      <DependentUpon>201803221016367_Editing view model.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Course.cs" />
     <Compile Include="Models\CourseToStudent.cs" />
@@ -116,6 +120,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201803220902198_key userViewModel.resx">
       <DependentUpon>201803220902198_key userViewModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803221016367_Editing view model.resx">
+      <DependentUpon>201803221016367_Editing view model.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
