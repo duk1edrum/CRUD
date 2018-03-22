@@ -7,7 +7,9 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Data.Context;
+using Data.Extensions;
 using Data.Models;
+using Data.ViewModels;
 
 namespace StudentCourses.Controllers
 {
@@ -20,6 +22,34 @@ namespace StudentCourses.Controllers
         {
             return View(db.Users.ToList());
         }
+
+        // GET :
+        [HttpGet]
+        public ActionResult  ViewModel()
+        {
+            return View();
+        }
+        //POST:
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult ViewModel(UserViewModel userView)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = UserMapping.ToUser(userView) ;  // implicit
+                // conversion from RegisterViewModel to User Model
+
+                User uv = result; // see implicit conversion
+                // from User model to RegisterViewModel
+                db.Users.Add(uv);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+                
+
+            }
+            return View();
+        }
+
 
         // GET: Users/Details/5
         public ActionResult Details(int? id)
