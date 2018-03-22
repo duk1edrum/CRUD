@@ -1,5 +1,5 @@
-﻿@model Data.Models.Student
-
+﻿@*@model Data.Models.Student*@
+@model Data.ViewModels.StudentsViewModel
 @{
     ViewBag.Title = "Details";
 }
@@ -40,6 +40,16 @@
 
         <dd>
             @Html.DisplayFor(model => model.SizeStipend)
+        </dd>
+        
+        <dd>
+            @foreach (var item in Model.Courses)
+            {
+                if (item.Checked)
+                {
+                    <div>@item.Name</div>
+                }
+            }
         </dd>
 
     </dl>

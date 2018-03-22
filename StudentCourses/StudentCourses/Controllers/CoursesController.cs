@@ -42,7 +42,8 @@ namespace StudentCourses.Controllers
                               s.Name,
                               s.LastName,
                               Checked = ((from ab in db.CoursesToStudents
-                                          where (ab.CourseId == id) & (ab.StudentId == s.StudentId)
+                                          where (ab.CourseId == id) & 
+                                                (ab.StudentId == s.StudentId)
                                           select ab).Count() > 0)
                           };
 

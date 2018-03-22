@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Data.Context;
 using Data.Models;
+using Data.ViewModels;
 
 namespace StudentCourses.Controllers
 {
@@ -33,12 +34,49 @@ namespace StudentCourses.Controllers
             {
                 return HttpNotFound();
             }
-            return View(student);
+
+            var results = from c in db.Courses
+                select new
+                {
+                    c.CourseId,
+                    c.Name,
+                    c.Room,
+                    Checked = ((from ab in db.CoursesToStudents
+                                   where (ab.StudentId == id) &
+                                         (ab.CourseId == c.CourseId)
+                                   select ab).Count() > 0)
+                };
+
+            var myViewModel1 = new StudentsViewModel();
+
+            myViewModel1.StudentId = id.Value;
+            myViewModel1.Name = student.Name;
+            myViewModel1.LastName =student.LastName ;
+            myViewModel1.Stipend = student.Stipend;
+            myViewModel1.SizeStipend = student.SizeStipend;
+
+            var myCheckboxList= new List<CheckBoxViewModel>();
+
+            foreach (var item in results)
+            {
+                myCheckboxList.Add(new CheckBoxViewModel
+                {
+                    Id =  item.CourseId,
+                    Name = item.Name ,
+                    Checked = item.Checked,
+                });
+            }
+
+            myViewModel1.Courses = myCheckboxList;
+
+            return View(myViewModel1);
         }
 
         // GET: Students/Create
         public ActionResult Create()
         {
+
+
             return View();
         }
 
@@ -71,7 +109,42 @@ namespace StudentCourses.Controllers
             {
                 return HttpNotFound();
             }
-            return View(student);
+
+            var results = from c in db.Courses
+                select new
+                {
+                    c.CourseId,
+                    c.Name,
+                    c.Room,
+                    Checked = ((from ab in db.CoursesToStudents
+                                   where (ab.StudentId == id) &
+                                         (ab.CourseId == c.CourseId)
+                                   select ab).Count() > 0)
+                };
+
+            var myViewModel1 = new StudentsViewModel();
+
+            myViewModel1.StudentId = id.Value;
+            myViewModel1.Name = student.Name;
+            myViewModel1.LastName = student.LastName;
+            myViewModel1.Stipend = student.Stipend;
+            myViewModel1.SizeStipend = student.SizeStipend;
+
+            var myCheckboxList = new List<CheckBoxViewModel>();
+
+            foreach (var item in results)
+            {
+                myCheckboxList.Add(new CheckBoxViewModel
+                {
+                    Id = item.CourseId,
+                    Name = item.Name,
+                    Checked = item.Checked,
+                });
+            }
+
+            myViewModel1.Courses = myCheckboxList;
+
+            return View(myViewModel1);
         }
 
         // POST: Students/Edit/5
@@ -79,11 +152,34 @@ namespace StudentCourses.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "StudentId,Name,LastName,Stipend,SizeStipend")] Student student)
+        public ActionResult Edit(StudentsViewModel student)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(student).State = EntityState.Modified;
+                var myStudent = db.Students.Find(student.StudentId);
+                myStudent.Name = student.Name;
+                myStudent.LastName = student.LastName;
+                myStudent.Stipend = student.Stipend;
+                myStudent.SizeStipend = student.SizeStipend;
+
+                foreach (var item in db.CoursesToStudents)
+                {
+                    if (item.StudentId == student.StudentId)
+                    {
+                        db.Entry(item).State = System.Data.Entity.EntityState.Deleted;
+                    }
+                }
+
+                foreach (var item in student.Courses)
+                {
+                    if (item.Checked)
+                    {
+                        db.CoursesToStudents.Add(
+                            new CourseToStudent() {StudentId = student.StudentId, CourseId = item.Id});
+                    }
+                }
+
+               // db.Entry(student).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
