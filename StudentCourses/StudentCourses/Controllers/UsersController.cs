@@ -54,13 +54,13 @@ namespace StudentCourses.Controllers
 
 
                 db.Users.Add(uv);
-                db.UserView.Add(userView);
+                //db.UserView.Add(userView);
                 db.SaveChanges();
                 return RedirectToAction("Index");
                 
 
             }
-            return View();
+            return View("CreateViewModel");
         }
 
 

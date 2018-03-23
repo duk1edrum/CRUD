@@ -99,6 +99,18 @@
     <Compile Include="Migrations\201803222145077_Student View Edit and Detials.Designer.cs">
       <DependentUpon>201803222145077_Student View Edit and Detials.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803230943429_Student view MODEL.cs" />
+    <Compile Include="Migrations\201803230943429_Student view MODEL.Designer.cs">
+      <DependentUpon>201803230943429_Student view MODEL.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803231000124_ICollection Courses.cs" />
+    <Compile Include="Migrations\201803231000124_ICollection Courses.Designer.cs">
+      <DependentUpon>201803231000124_ICollection Courses.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803231051024_oNE TO MANY .cs" />
+    <Compile Include="Migrations\201803231051024_oNE TO MANY .Designer.cs">
+      <DependentUpon>201803231051024_oNE TO MANY .cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Course.cs" />
     <Compile Include="Models\CourseToStudent.cs" />
@@ -131,6 +143,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201803222145077_Student View Edit and Detials.resx">
       <DependentUpon>201803222145077_Student View Edit and Detials.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803230943429_Student view MODEL.resx">
+      <DependentUpon>201803230943429_Student view MODEL.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803231000124_ICollection Courses.resx">
+      <DependentUpon>201803231000124_ICollection Courses.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803231051024_oNE TO MANY .resx">
+      <DependentUpon>201803231051024_oNE TO MANY .cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -41,9 +41,14 @@
         <dd>
             @Html.DisplayFor(model => model.SizeStipend)
         </dd>
-        
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Courses)
+        </dt>
+
+       
         <dd>
-            <b>Courses</b>
+
             @foreach (var item in Model.Courses)
             {
                 if (item.Checked)

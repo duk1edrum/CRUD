@@ -16,6 +16,8 @@ namespace Data.Models
         public int Room { get; set; }
         public bool Free { get; set; }
 
+        public ICollection<Student> Students { get; set; }
+
         public virtual ICollection<CourseToStudent> CoursesToStudents{ get; set; }
 
     }

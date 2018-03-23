@@ -20,6 +20,9 @@ namespace Data.Models
         public bool Stipend { get; set; }
         public int SizeStipend { get; set; }
 
+        public int? CourseId { get; set; }
+        public Course Course { get; set; }
+
         public ICollection<CourseToStudent> CoursesToStudents { get; set; }
         
     }

@@ -61,7 +61,7 @@ namespace StudentCourses.Controllers
                 myCheckBoxList.Add(new CheckBoxViewModel
                 {
                     Id = item.StudentId,
-                    Name = item.Name + item.LastName,
+                    Name = item.Name + " " + item.LastName,
                     Checked = item.Checked,
 
                 });
