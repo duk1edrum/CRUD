@@ -1,4 +1,4 @@
-﻿@model Data.Models.User
+﻿@model StudentCourses.ViewModels.UserViewModel
 
 @{
     ViewBag.Title = "Delete";
@@ -28,11 +28,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Login)
+            @Html.DisplayNameFor(model => model.Email)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Login)
+            @Html.DisplayFor(model => model.Email)
         </dd>
 
         <dt>

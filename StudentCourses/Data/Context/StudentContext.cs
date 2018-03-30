@@ -5,18 +5,43 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Data.Models;
-using Data.ViewModels;
 
 namespace Data.Context
 {
     public class StudentContext : DbContext
     {
+
+
         public DbSet<User> Users { get; set; }
         public DbSet<Student> Students { get; set; }
         public DbSet<Course> Courses { get; set; }
-        public DbSet<UserViewModel> UserView { get; set; }
+        //public DbSet<UserViewModel> UserView { get; set; }
         public DbSet<CourseToStudent> CoursesToStudents { get; set; }
+
+        public StudentContext()
+        :base("StudentDB")
+        {
+            
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>().Property(
+                p => p.Name).IsRequired();
+            modelBuilder.Entity<User>().Property(
+                p => p.Name).HasMaxLength(50);
+            modelBuilder.Entity<User>().Property(
+                p => p.LastName).HasMaxLength(50);
+            base.OnModelCreating(modelBuilder);
+        }
     }
+
+
+
+
+
+
+
 
     //public class CourseDbInitializer : DropCreateDatabaseIfModelChanges<StudentContext>
     //{

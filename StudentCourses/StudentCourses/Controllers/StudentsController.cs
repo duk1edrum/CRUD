@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Data.Context;
 using Data.Models;
-using Data.ViewModels;
+using StudentCourses.ViewModels;
 
 namespace StudentCourses.Controllers
 {

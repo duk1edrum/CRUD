@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Data.Context;
 using Data.Models;
-using Data.ViewModels;
+using StudentCourses.ViewModels;
 
 namespace StudentCourses.Controllers
 {
@@ -44,7 +44,7 @@ namespace StudentCourses.Controllers
                               Checked = ((from ab in db.CoursesToStudents
                                           where (ab.CourseId == id) & 
                                                 (ab.StudentId == s.StudentId)
-                                          select ab).Count() > 0)
+                                          select ab).Any())
                           };
 
             var myViewModel = new CoursesViewModel();
@@ -89,7 +89,7 @@ namespace StudentCourses.Controllers
                     s.LastName,
                     Checked = ((from ab in db.CoursesToStudents
                                    where (ab.CourseId == course.CourseId) & (ab.StudentId == s.StudentId)
-                                   select ab).Count() > 0)
+                                   select ab).Any())
                 };
 
             var myViewModel = new CoursesViewModel();
@@ -156,7 +156,7 @@ namespace StudentCourses.Controllers
                               s.LastName,
                               Checked = ((from ab in db.CoursesToStudents
                                           where (ab.CourseId == id) & (ab.StudentId == s.StudentId)
-                                          select ab).Count() > 0)
+                                          select ab).Any())
                           };
 
             var myViewModel = new CoursesViewModel();

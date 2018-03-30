@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Data.Models.Student>
+﻿@model IEnumerable<StudentCourses.ViewModels.StudentsViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -25,7 +25,7 @@
         </th>
 
         <th>
-            @Html.DisplayNameFor(model => model.Course)
+            @Html.DisplayNameFor(model => model.Courses)
         </th>
     </tr>
 
@@ -44,7 +44,7 @@
             @Html.DisplayFor(modelItem => item.SizeStipend)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Course)
+            @Html.DisplayFor(modelItem => item.Courses)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.StudentId }) |

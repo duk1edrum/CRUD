@@ -7,9 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Data.Context;
-using Data.Extensions;
 using Data.Models;
-using Data.ViewModels;
+using StudentCourses.ViewModels;
 
 namespace StudentCourses.Controllers
 {
@@ -20,14 +19,14 @@ namespace StudentCourses.Controllers
         // GET: Users
         public ActionResult Index()
         {
-            return View(db.Users.ToList());
+            return View();
         }
 
         // GET :
         [HttpGet]
         public ActionResult  Create()
         {
-            return View("CreateViewModel");
+            return View();
         }
         //POST:
         [HttpPost]
@@ -36,10 +35,12 @@ namespace StudentCourses.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = UserMapping.ToUser(userView) ;  // implicit
+                var result = userView.ToUser();  
+                
+                // implicit
                 //// conversion from RegisterViewModel to User Model
 
-                User uv = result; // see implicit conversion
+                var uv = result; // see implicit conversion
                 // from User model to RegisterViewModel
 
                // var userview = new User()
@@ -60,7 +61,7 @@ namespace StudentCourses.Controllers
                 
 
             }
-            return View("CreateViewModel");
+            return View();
         }
 
 
