@@ -11,7 +11,7 @@ using Service.Interfaces;
 
 namespace Service.Services
 {
-    public class UserService:IShowUsers
+    public class UserService:IUserService
     {
         private static IUnitOfWork Database { get; set; }
 
@@ -26,7 +26,7 @@ namespace Service.Services
             return mapper.Map<IEnumerable<User>, List<UserDto>>(Database.Users.GetAll());
         }
 
-        void IShowUsers.Dispose()
+        void IUserService.Dispose()
         {
             Dispose();
         }
@@ -55,7 +55,7 @@ namespace Service.Services
             };
         }
 
-        IEnumerable<UserDto> IShowUsers.GetUsers()
+        IEnumerable<UserDto> IUserService.GetUsers()
         {
             return GetUsers();
         }

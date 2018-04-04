@@ -21,7 +21,7 @@ namespace StudentCourses.Controllers
 {
     public class UsersController : Controller
     {
-        private IShowUsers _showUsers;
+        private IUserService _showUsers;
 
         public UsersController()
         {

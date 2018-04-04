@@ -5,7 +5,7 @@ using Service.DTO;
 
 namespace Service.Interfaces
 {
-    public interface IShowUsers
+    public interface IUserService
     {
         //void ShowUsder(UserDto userDto);
         UserDto GetUser(int? id);

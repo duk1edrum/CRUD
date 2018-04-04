@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace StudentCourses.ViewModels
 {
-    public class StudentsViewModel
+    public class StudentViewModel
     {
         public int StudentId { get; set; }
         public string Name { get; set; }
@@ -15,6 +15,6 @@ namespace StudentCourses.ViewModels
         public bool Stipend { get; set; }
         public int SizeStipend { get; set; }
 
-        public List<CheckBoxViewModel> Courses { get; set; }
+       // public List<CheckBoxViewModel> Courses { get; set; }
     }
 }
