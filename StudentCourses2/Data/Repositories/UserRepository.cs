@@ -19,6 +19,10 @@ namespace Data.Repositories
             this._db = context;
         }
 
+        public UserRepository()
+        {
+        }
+
         public IEnumerable<User> GetAll()
         {
             return _db.Users;
@@ -45,7 +49,10 @@ namespace Data.Repositories
             if (user != null)
                 _db.Users.Remove(user);
         }
-
+        public void Save()
+        {
+            _db.SaveChanges();
+        }
         public IEnumerable<User> Find(Func<User, Boolean> predicate)
         {
             return _db.Users.Where(predicate).ToList();

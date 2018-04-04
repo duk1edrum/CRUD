@@ -69,8 +69,26 @@ namespace Data.Context
                 Name = "Qazxc",LastName = "Qwerty",Login = "qsc@qsc.com",Password = "1111",
 
             };
-            context.Users.Add(user1);
 
+            Student student1 = new Student
+            {
+                Name = "Antov",
+                LastName = "Antovonv",
+                Stipend = true,
+                SizeStipend = 500,
+
+            };
+
+            Course course1 = new Course
+            {
+                Name = "Asp.Net MVC 6",
+                Room = 12,
+                Free = true,
+            };
+
+            context.Users.Add(user1);
+            context.Students.Add(student1);
+            context.Courses.Add(course1);
             context.SaveChanges();
         }
     }

@@ -31,6 +31,11 @@ namespace Service.Services
             Dispose();
         }
 
+        public void ShowUser(UserDto userDto)
+        {
+            throw new NotImplementedException();
+        }
+
         public UserDto GetUser(int? id)
         {
             if(id == null)

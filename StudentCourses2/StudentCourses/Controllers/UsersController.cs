@@ -7,7 +7,10 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
-
+using Data.Context;
+using Data.Interfaces;
+using Data.Models;
+using Data.Repositories;
 using Service.DTO;
 using Service.Interfaces;
 using Service.Services;
@@ -18,20 +21,28 @@ namespace StudentCourses.Controllers
 {
     public class UsersController : Controller
     {
-        private IShowUsers showUsers;
+        private IShowUsers _showUsers;
 
-      
+        public UsersController()
+        {
+          var asd = new UserRepository();
+        }
+        
 
-       // private StudentContext db = new StudentContext();
+
+
+        // private StudentContext _db = new StudentContext();
+
 
         // GET: Users
         public ActionResult Index()
         {
-            IEnumerable<UserDto> userDtos = showUsers.GetUsers();
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<UserDto, UserViewModel>()).CreateMapper();
-            var users = mapper.Map<IEnumerable<UserDto>, List<UserViewModel>>(userDtos);
 
-            return View(users);
+           //IEnumerable<UserDto> userDtos = showUsers.GetUsers();
+            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<UserDto, UserViewModel>()).CreateMapper();
+            //var users = mapper.Map<IEnumerable<UserDto>, List<UserViewModel>>(userDtos);
+
+            return View();
         }
 
         //// GET :
@@ -183,5 +194,9 @@ namespace StudentCourses.Controllers
         //    UserService.Dispose();
         //    base.Dispose(disposing);
         //}
+    }
+
+    internal interface IShowUsers<T>
+    {
     }
 }

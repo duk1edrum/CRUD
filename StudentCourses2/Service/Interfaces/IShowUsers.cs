@@ -7,7 +7,7 @@ namespace Service.Interfaces
 {
     public interface IShowUsers
     {
-        //void ShowUser(UserDto userDto);
+        //void ShowUsder(UserDto userDto);
         UserDto GetUser(int? id);
         IEnumerable<UserDto> GetUsers();
         void Dispose();

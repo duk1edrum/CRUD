@@ -14,10 +14,17 @@ namespace Data.Repositories
         private StudentContext db;
 
         private UserRepository _userRepository;
+        private StudentRepository _studentRepository;
+        private CourseRepository _courseRepository;
+
 
         public EFUnitOfWork(string connectionString)
         {
             db = new StudentContext(connectionString);
+        }
+
+        public EFUnitOfWork()
+        {
         }
 
         public IRepository<User> Users
@@ -27,6 +34,26 @@ namespace Data.Repositories
                 if (_userRepository == null)
                     _userRepository = new UserRepository(db);
                 return _userRepository;
+            }
+        }
+
+        public IRepository<Student> Students
+        {
+            get
+            {
+                if (_studentRepository == null)
+                    _studentRepository = new StudentRepository(db);
+                return _studentRepository;
+            }
+        }
+
+        public IRepository<Course> Courses
+        {
+            get
+            {
+                if (_courseRepository == null)
+                    _courseRepository = new CourseRepository(db);
+                return _courseRepository;
             }
         }
 
