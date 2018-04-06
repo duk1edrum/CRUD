@@ -60,7 +60,7 @@ namespace Data.Context
         }
     }
 
-    public class CourseDbInitializer : DropCreateDatabaseIfModelChanges<StudentContext>
+    public class CourseDbInitializer : DropCreateDatabaseAlways<StudentContext>
     {
         protected override void Seed(StudentContext context)
         {
@@ -75,7 +75,7 @@ namespace Data.Context
                 Name = "Antov",
                 LastName = "Antovonv",
                 Stipend = true,
-                SizeStipend = 500,
+                Amount = 500,
 
             };
 

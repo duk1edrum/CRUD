@@ -14,14 +14,14 @@ namespace Data.Repositories
     {
         private readonly  StudentContext _db;
 
+        
+
         public UserRepository(StudentContext context)
         {
-            this._db = context;
+            this._db = new StudentContext("StudentCoursesDb");
         }
 
-        public UserRepository()
-        {
-        }
+       
 
         public IEnumerable<User> GetAll()
         {

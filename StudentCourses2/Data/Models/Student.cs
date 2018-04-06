@@ -9,11 +9,11 @@ namespace Data.Models
 {
     public class Student
     {
-        public int Id { get; set; }
+        public int StudentId { get; set; }
         public string Name { get; set; }
         public string LastName { get; set; }
         public bool Stipend { get; set; }
-        public int SizeStipend { get; set; }
+        public int Amount { get; set; }
 
         public User User { get; set; }
 

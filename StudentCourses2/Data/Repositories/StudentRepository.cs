@@ -14,9 +14,10 @@ namespace Data.Repositories
 
         private StudentContext _db;
 
+       
         public StudentRepository (StudentContext context)
         {
-            this._db = context;
+            this._db = new StudentContext("StudentCoursesDb");
         }
 
         public IEnumerable<Student> GetAll()
@@ -39,10 +40,10 @@ namespace Data.Repositories
             _db.Entry(student).State = System.Data.Entity.EntityState.Modified;
         }
 
-        public IEnumerable<Student> Find(Func<Student,Boolean> predicate)
-        {
-            return _db.Students.Where(predicate).ToList();
-        }
+        //public IEnumerable<Student> Find(Func<Student,Boolean> predicate)
+        //{
+        //    return _db.Students.Where(predicate).ToList();
+        //}
 
         public void Delete(int id)
         {

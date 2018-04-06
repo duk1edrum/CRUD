@@ -11,16 +11,18 @@ using StudentCourses.ViewModels;
 
 namespace StudentCourses.Controllers
 {
-}
-//    public class CoursesController : Controller
-//    {
-//        private StudentContext db = new StudentContext();
 
-//        // GET: Courses
-//        public ActionResult Index()
-//        {
-//            return View(db.Courses.ToList());
-//        }
+    public class CoursesController : Controller
+    {
+    }
+}
+        //ICourseService courseService;
+
+        //// GET: Courses
+        //public ActionResult Index()
+        //{
+        //    return View(db.Courses.ToList());
+        //}
 
 //        // GET: Courses/Details/5
 //        public ActionResult Details(int? id)

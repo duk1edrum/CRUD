@@ -11,7 +11,7 @@ namespace Data.Repositories
 {
     public class EFUnitOfWork:IUnitOfWork
     {
-        private StudentContext db;
+        private StudentContext _db;
 
         private UserRepository _userRepository;
         private StudentRepository _studentRepository;
@@ -20,11 +20,12 @@ namespace Data.Repositories
 
         public EFUnitOfWork(string connectionString)
         {
-            db = new StudentContext(connectionString);
+            _db = new StudentContext(connectionString);
         }
 
         public EFUnitOfWork()
         {
+            
         }
 
         public IRepository<User> Users
@@ -32,7 +33,7 @@ namespace Data.Repositories
             get
             {
                 if (_userRepository == null)
-                    _userRepository = new UserRepository(db);
+                    _userRepository = new UserRepository(_db);
                 return _userRepository;
             }
         }
@@ -42,7 +43,7 @@ namespace Data.Repositories
             get
             {
                 if (_studentRepository == null)
-                    _studentRepository = new StudentRepository(db);
+                    _studentRepository = new StudentRepository(_db);
                 return _studentRepository;
             }
         }
@@ -52,14 +53,14 @@ namespace Data.Repositories
             get
             {
                 if (_courseRepository == null)
-                    _courseRepository = new CourseRepository(db);
+                    _courseRepository = new CourseRepository(_db);
                 return _courseRepository;
             }
         }
 
         public void Save()
         {
-            db.SaveChanges();
+            _db.SaveChanges();
         }
 
         private bool _disposed = false;
@@ -70,7 +71,7 @@ namespace Data.Repositories
             {
                 if (disposing)
                 {
-                    db.Dispose();
+                    _db.Dispose();
                 }
 
                 this._disposed = true;

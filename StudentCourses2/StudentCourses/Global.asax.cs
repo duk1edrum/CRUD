@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Data.Context;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace StudentCourses
     {
         protected void Application_Start()
         {
-           // Database.SetInitializer(new CourseDbInitializer());
+            //Database.SetInitializer(new CourseDbInitializer());
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

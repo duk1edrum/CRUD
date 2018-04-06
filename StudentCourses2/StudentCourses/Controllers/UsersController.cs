@@ -21,11 +21,11 @@ namespace StudentCourses.Controllers
 {
     public class UsersController : Controller
     {
-        private IUserService _showUsers;
+        private IUserService _userService;
 
         public UsersController()
         {
-          var asd = new UserRepository();
+          _userService = new UserService(new EFUnitOfWork());
         }
         
 
@@ -38,11 +38,11 @@ namespace StudentCourses.Controllers
         public ActionResult Index()
         {
 
-           //IEnumerable<UserDto> userDtos = showUsers.GetUsers();
-            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<UserDto, UserViewModel>()).CreateMapper();
-            //var users = mapper.Map<IEnumerable<UserDto>, List<UserViewModel>>(userDtos);
+            IEnumerable<UserDto> userDtos = _userService.GetUsers();
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<UserDto, UserViewModel>()).CreateMapper();
+            var users = mapper.Map<IEnumerable<UserDto>, List<UserViewModel>>(userDtos);
 
-            return View();
+            return View(users.ToList());
         }
 
         //// GET :

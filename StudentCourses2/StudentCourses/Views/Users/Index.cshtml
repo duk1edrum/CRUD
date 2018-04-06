@@ -1,5 +1,5 @@
 ﻿@*@model IEnumerable<Data.Models.User>*@
-@model IEnumerable<Data.Models.User>
+@model IEnumerable<StudentCourses.ViewModels.UserViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -12,9 +12,9 @@
 </p>
 <table class="table">
     <tr>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.Name)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.LastName)
         </th>
