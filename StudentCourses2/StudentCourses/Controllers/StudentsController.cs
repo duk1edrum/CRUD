@@ -41,7 +41,7 @@ public class StudentsController : Controller
 
     public StudentsController()
     {
-        this._studentService = new StudentService(new EFUnitOfWork());
+        this._studentService = new StudentService();
     }
 
 

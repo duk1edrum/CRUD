@@ -15,16 +15,15 @@ namespace Service.Services
     public class StudentService : IStudentService
     {
         IUnitOfWork Database { get; set; }
+        public StudentService()
+        {
+            Database = new EFUnitOfWork();
+        }
 
         public StudentService(IUnitOfWork uow)
         {
             Database = uow;
         }
-
-        //public StudentService(StudentContext studentContext)
-        //{
-        //    Database = new EFUnitOfWork("StudentCoursesDb");
-        //}
 
         public void Create()
         {

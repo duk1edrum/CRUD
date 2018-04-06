@@ -5,6 +5,7 @@ using System.Text;
 using AutoMapper;
 using Data.Interfaces;
 using Data.Models;
+using Data.Repositories;
 using Service.DTO;
 using Service.Infrastructure;
 using Service.Interfaces;
@@ -18,6 +19,11 @@ namespace Service.Services
         public UserService(IUnitOfWork uow)
         {
             Database = uow;
+        }
+
+        public UserService()
+        {
+            Database = new EFUnitOfWork();
         }
 
         public static IEnumerable<UserDto> GetUsers()
@@ -59,6 +65,12 @@ namespace Service.Services
         {
             return GetUsers();
         }
+
+        public void Create()
+        {
+          
+        }
+
 
         public static void Dispose()
         {

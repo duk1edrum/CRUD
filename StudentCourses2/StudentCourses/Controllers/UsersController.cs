@@ -25,7 +25,7 @@ namespace StudentCourses.Controllers
 
         public UsersController()
         {
-          _userService = new UserService(new EFUnitOfWork());
+          _userService = new UserService();
         }
         
 
@@ -58,8 +58,8 @@ namespace StudentCourses.Controllers
         //{
         //    if (ModelState.IsValid)
         //    {
-        //        var result = userView.ToUser() ;  // implicit
-        //        //// conversion from RegisterViewModel to User Model
+        //        var result = userView.ToUser() ;
+        //        
 
         //        User uv = result; // see implicit conversion
         //        // from User model to RegisterViewModel

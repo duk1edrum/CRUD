@@ -10,6 +10,7 @@ namespace Service.Interfaces
         //void ShowUsder(UserDto userDto);
         UserDto GetUser(int? id);
         IEnumerable<UserDto> GetUsers();
+        void Create();
         void Dispose();
     }
 }
