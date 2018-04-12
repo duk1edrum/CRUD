@@ -1,20 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
-using Data.Context;
-using Data.Interfaces;
 using Data.Models;
-using Data.Repositories;
 using Service.DTO;
 using Service.Interfaces;
 using Service.Services;
-using StudentCourses.Extensions;
 using StudentCourses.ViewModels;
 
 namespace StudentCourses.Controllers
@@ -22,6 +13,7 @@ namespace StudentCourses.Controllers
     public class UsersController : Controller
     {
         private IUserService _userService;
+
 
         public UsersController()
         {
@@ -45,45 +37,51 @@ namespace StudentCourses.Controllers
             return View(users.ToList());
         }
 
-        //// GET :
-        //[HttpGet]
-        //public ActionResult  Create()
-        //{
-        //    return View();
-        //}
+        // GET :
+        [HttpGet]
+        public ActionResult Create(int? id)
+        {
+            UserViewModel userView = new UserViewModel();
+            if (id.HasValue && id != 0 )
+            {
+                UserDto user = _userService.GetUser(id.Value);
+                userView.Name = user.Name;
+                userView.LastName = user.LastName;
+                userView.Email = user.Login;
+                userView.Password = user.Password;
+            }
+            return View(userView);
+        }
         ////POST:
-        //[HttpPost]
-        //[AllowAnonymous]
-        //public ActionResult Create(UserViewModel userView)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        var result = userView.ToUser() ;
-        //        
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult Create(UserViewModel userView)
+        {
+            if(userView.UserViewId == 0)
+            {
+                User userEntity = new User
+                {
+                    Name = userView.Name,
+                    LastName = userView.LastName,
+                    Login = userView.Email,
+                    Password = userView.Password,
+                };
+                _userService.Create(userEntity);
+                if(userEntity.Id >0)
+                {
 
-        //        User uv = result; // see implicit conversion
-        //        // from User model to RegisterViewModel
+                    return RedirectToAction("Index");
+                }
+            }
+          
+            
 
-        //       // var userview = new User()
-        //       // {
-        //       //      UserId= userView.UserViewId,
-        //       //     Login = userView.Email,
-        //       //     Name = userView.Name,
-        //       //     LastName = userView.LastName,
-        //       //     Password = userView.Password
-        //       //
-        //       // };
+             return View();
 
 
-        //        db.Users.Add(uv);
-        //        //db.UserView.Add(userView);
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-                
+        }
 
-        //    }
-        //    return View();
-        //}
+
 
 
         //// GET: Users/Details/5
@@ -152,7 +150,7 @@ namespace StudentCourses.Controllers
         //        // conversion from RegisterViewModel to User Model
 
         //        User uv = result; // see implicit conversion
-              
+
         //        db.Users.Add(uv);
         //        db.SaveChanges();
         //        return RedirectToAction("Index");

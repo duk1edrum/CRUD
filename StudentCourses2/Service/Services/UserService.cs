@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
 using AutoMapper;
 using Data.Interfaces;
 using Data.Models;
@@ -15,6 +13,7 @@ namespace Service.Services
     public class UserService:IUserService
     {
         private static IUnitOfWork Database { get; set; }
+        private IRepository<User> _userRepository;
 
         public UserService(IUnitOfWork uow)
         {
@@ -37,11 +36,7 @@ namespace Service.Services
             Dispose();
         }
 
-        public void ShowUser(UserDto userDto)
-        {
-            throw new NotImplementedException();
-        }
-
+       
         public UserDto GetUser(int? id)
         {
             if(id == null)
@@ -65,16 +60,26 @@ namespace Service.Services
         {
             return GetUsers();
         }
-
-        public void Create()
-        {
-          
-        }
+        
 
 
         public static void Dispose()
         {
             Database.Dispose();
         }
+
+        public void Update()
+        {
+            throw new NotImplementedException();
+        }
+        
+        public void Create(User user)
+        {
+           
+            _userRepository.Create(user);
+            //throw new NotImplementedException();
+        }
+
+        
     }
 }

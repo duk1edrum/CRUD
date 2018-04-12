@@ -57,5 +57,7 @@ namespace Data.Repositories
         {
             return _db.Users.Where(predicate).ToList();
         }
+
+       
     }
 }

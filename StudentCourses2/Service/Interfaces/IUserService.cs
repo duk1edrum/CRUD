@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Data.Models;
 using Service.DTO;
 
 namespace Service.Interfaces
@@ -10,7 +11,9 @@ namespace Service.Interfaces
         //void ShowUsder(UserDto userDto);
         UserDto GetUser(int? id);
         IEnumerable<UserDto> GetUsers();
-        void Create();
+        void Update();
+        void Create(User user);
         void Dispose();
+       
     }
 }
