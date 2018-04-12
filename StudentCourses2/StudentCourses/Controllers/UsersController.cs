@@ -17,14 +17,8 @@ namespace StudentCourses.Controllers
 
         public UsersController()
         {
-          _userService = new UserService();
+            _userService = new UserService();
         }
-        
-
-
-
-        // private StudentContext _db = new StudentContext();
-
 
         // GET: Users
         public ActionResult Index()
@@ -37,12 +31,13 @@ namespace StudentCourses.Controllers
             return View(users.ToList());
         }
 
-        // GET :
+        // Create
+        // GET: 
         [HttpGet]
         public ActionResult Create(int? id)
         {
             UserViewModel userView = new UserViewModel();
-            if (id.HasValue && id != 0 )
+            if (id.HasValue && id != 0)
             {
                 UserDto user = _userService.GetUser(id.Value);
                 userView.Name = user.Name;
@@ -52,12 +47,14 @@ namespace StudentCourses.Controllers
             }
             return View(userView);
         }
-        ////POST:
+
+        //Create:
+        //POST:
         [HttpPost]
         [AllowAnonymous]
         public ActionResult Create(UserViewModel userView)
         {
-            if(userView.UserViewId == 0)
+            if (userView.UserViewId == 0)
             {
                 User userEntity = new User
                 {
@@ -67,18 +64,14 @@ namespace StudentCourses.Controllers
                     Password = userView.Password,
                 };
                 _userService.Create(userEntity);
-                if(userEntity.Id >0)
+                if (userEntity.Id > 0)
                 {
 
                     return RedirectToAction("Index");
                 }
             }
-          
-            
 
-             return View();
-
-
+            return View();
         }
 
 
