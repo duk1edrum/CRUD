@@ -18,6 +18,6 @@ namespace Data.Interfaces
         void Update(T item);
         //void Save(T item);
         void Delete(int id);
-      
+        void Save();
     }
 }

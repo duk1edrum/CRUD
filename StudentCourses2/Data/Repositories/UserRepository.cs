@@ -12,16 +12,16 @@ namespace Data.Repositories
 {
     public class UserRepository : IRepository<User>
     {
-        private readonly  StudentContext _db;
+        private readonly StudentContext _db;
 
-        
+
 
         public UserRepository(StudentContext context)
         {
             this._db = new StudentContext("StudentCoursesDb");
         }
 
-       
+
 
         public IEnumerable<User> GetAll()
         {
@@ -49,15 +49,14 @@ namespace Data.Repositories
             if (user != null)
                 _db.Users.Remove(user);
         }
-        public void Save()
-        {
-            _db.SaveChanges();
-        }
         public IEnumerable<User> Find(Func<User, Boolean> predicate)
         {
             return _db.Users.Where(predicate).ToList();
         }
 
-       
+        public void Save()
+        {
+            _db.SaveChanges();
+        }
     }
 }

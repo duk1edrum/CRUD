@@ -71,7 +71,7 @@ namespace StudentCourses.Controllers
                     return RedirectToAction("Index");
                 }
             }
-
+            
             return View();
         }
 

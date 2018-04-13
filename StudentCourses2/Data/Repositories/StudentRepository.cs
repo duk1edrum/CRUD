@@ -51,5 +51,10 @@ namespace Data.Repositories
             if (student != null)
                 _db.Students.Remove(student);
         }
+
+        public void Save()
+        {
+            _db.SaveChanges();
+        }
     }
 }

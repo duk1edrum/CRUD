@@ -10,11 +10,10 @@ using Service.Interfaces;
 
 namespace Service.Services
 {
-    public class UserService:IUserService
+    public class UserService : IUserService
     {
         private static IUnitOfWork Database { get; set; }
-        //private static EFUnitOfWork _unitOfWork { get; set; }
-        private IRepository<User> _userRepository;
+        
 
         public UserService(IUnitOfWork uow)
         {
@@ -37,17 +36,17 @@ namespace Service.Services
             Dispose();
         }
 
-       
+
         public UserDto GetUser(int? id)
         {
-            if(id == null)
-                throw new ValidationException("User has`nt Id","");
+            if (id == null)
+                throw new ValidationException("User has`nt Id", "");
             var user = Database.Users.Get(id.Value);
 
-            if(user == null)
-                throw new ValidationException("User not found","");
+            if (user == null)
+                throw new ValidationException("User not found", "");
 
-           return new UserDto
+            return new UserDto
             {
                 Id = user.Id,
                 Name = user.Name,
@@ -61,7 +60,7 @@ namespace Service.Services
         {
             return GetUsers();
         }
-        
+
 
 
         public static void Dispose()
@@ -69,13 +68,11 @@ namespace Service.Services
             Database.Dispose();
         }
 
-       
-        
+
+
         public void Create(User user)
         {
             Database.Users.Create(user);
-           // _userRepository.Create(user);
-            //throw new NotImplementedException();
         }
 
         public void Update()
@@ -85,13 +82,7 @@ namespace Service.Services
 
         public void Save()
         {
-            Database.Save();
+            Database.Users.Save();
         }
-
-        //    void IUserService.Create(User user)
-        //    {
-        //        _unitOfWork.Users.Create(user);
-        //        // _userRepository.Create(user);
-        //    }
     }
 }

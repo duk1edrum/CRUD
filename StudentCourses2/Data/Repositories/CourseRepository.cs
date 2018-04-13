@@ -50,6 +50,11 @@ namespace Data.Repositories
             if (course != null)
                 _db.Courses.Remove(course);
         }
+
+        public void Save()
+        {
+            _db.SaveChanges();
+        }
     }
 
 }
