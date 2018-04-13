@@ -39,11 +39,11 @@ namespace StudentCourses.Controllers
             UserViewModel userView = new UserViewModel();
             if (id.HasValue && id != 0)
             {
-                UserDto user = _userService.GetUser(id.Value);
-                userView.Name = user.Name;
-                userView.LastName = user.LastName;
-                userView.Email = user.Login;
-                userView.Password = user.Password;
+                UserDto userDto = _userService.GetUser(id.Value);
+                userView.Name = userDto.Name;
+                userView.LastName = userDto.LastName;
+                userView.Email = userDto.Login;
+                userView.Password = userDto.Password;
             }
             return View(userView);
         }
@@ -64,6 +64,7 @@ namespace StudentCourses.Controllers
                     Password = userView.Password,
                 };
                 _userService.Create(userEntity);
+                _userService.Save();
                 if (userEntity.Id > 0)
                 {
 

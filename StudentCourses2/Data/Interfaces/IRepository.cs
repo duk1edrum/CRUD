@@ -16,6 +16,7 @@ namespace Data.Interfaces
 
         void Create(T item);
         void Update(T item);
+        //void Save(T item);
         void Delete(int id);
       
     }

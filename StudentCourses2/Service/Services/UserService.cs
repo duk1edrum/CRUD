@@ -13,6 +13,7 @@ namespace Service.Services
     public class UserService:IUserService
     {
         private static IUnitOfWork Database { get; set; }
+        //private static EFUnitOfWork _unitOfWork { get; set; }
         private IRepository<User> _userRepository;
 
         public UserService(IUnitOfWork uow)
@@ -72,8 +73,8 @@ namespace Service.Services
         
         public void Create(User user)
         {
-           
-            _userRepository.Create(user);
+            Database.Users.Create(user);
+           // _userRepository.Create(user);
             //throw new NotImplementedException();
         }
 
@@ -82,9 +83,15 @@ namespace Service.Services
             throw new NotImplementedException();
         }
 
-        void IUserService.Create(User user)
+        public void Save()
         {
-            _userRepository.Create(user);
+            Database.Save();
         }
+
+        //    void IUserService.Create(User user)
+        //    {
+        //        _unitOfWork.Users.Create(user);
+        //        // _userRepository.Create(user);
+        //    }
     }
 }
