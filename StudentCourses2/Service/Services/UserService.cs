@@ -68,10 +68,7 @@ namespace Service.Services
             Database.Dispose();
         }
 
-        public void Update()
-        {
-            throw new NotImplementedException();
-        }
+       
         
         public void Create(User user)
         {
@@ -80,6 +77,14 @@ namespace Service.Services
             //throw new NotImplementedException();
         }
 
-        
+        public void Update()
+        {
+            throw new NotImplementedException();
+        }
+
+        void IUserService.Create(User user)
+        {
+            _userRepository.Create(user);
+        }
     }
 }
