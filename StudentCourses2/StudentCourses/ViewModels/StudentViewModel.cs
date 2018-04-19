@@ -15,6 +15,6 @@ namespace StudentCourses.ViewModels
         public bool Stipend { get; set; }
         public int SizeStipend { get; set; }
 
-       // public List<CheckBoxViewModel> Courses { get; set; }
+        public List<CheckBoxViewModel> Courses { get; set; }
     }
 }

@@ -40,23 +40,20 @@ namespace Service.Services
 
         public UserDto GetUser(int? id)
         {
-            
+            //var user = UserMapping.ToUserDto0()
             if (id == null)
-                throw new ValidationException("User has`nt Id", "");
-
-            var user = Database.Users.Get(id.Value);
-
-            if (user == null)
-                throw new ValidationException("User not found", "");
-            
-            return new UserDto
             {
-                Id = user.Id,
-                Name = user.Name,
-                LastName = user.LastName,
-                Login = user.Login,
-                Password = user.Password
-            };
+                throw new ValidationException("User has`nt Id", "");
+            }
+            UserDto userDto = UserMapping.ToUserDto(Database.Users.Get(id));
+
+
+            if (userDto == null)
+            {
+                throw new ValidationException("User not found ! ", "");
+            }
+
+            return new UserDto();
         }
 
         IEnumerable<UserDto> IUserService.GetUsers()
@@ -71,21 +68,6 @@ namespace Service.Services
             Database.Dispose();
         }
 
-
-
-        public void Create(User user)
-        {
-            //var toUserDto = UserMapping.ToUserDto(user);
-          //  var uv = toUserDto;
-
-           Database.Users.Create(user);
-        }
-
-        public void Update()
-        {
-            throw new NotImplementedException();
-        }
-        
 
         public void Update(UserDto userDto)
         {

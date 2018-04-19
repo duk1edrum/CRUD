@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using AutoMapper;
+using Data.Context;
 using Data.Interfaces;
 using Data.Models;
 using Data.Repositories;
@@ -18,6 +19,8 @@ namespace StudentCourses.Controllers
     {
         private IUserService _userService;
 
+        private StudentContext _db = new StudentContext();
+
 
         public UsersController()
         {
@@ -31,8 +34,60 @@ namespace StudentCourses.Controllers
             IEnumerable<UserDto> userDtos = _userService.GetUsers();
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<UserDto, UserViewModel>()).CreateMapper();
             var users = mapper.Map<IEnumerable<UserDto>, List<UserViewModel>>(userDtos);
-            //var users = UserViewMapping.ToUserView(userDtos);
             return View(users.ToList());
+        }
+
+        public ActionResult Details(int? id)
+        {
+            // GET: Students/Details/5
+            //public ActionResult Details(int? id)
+            //{
+            //    if (id == null)
+            //    {
+            //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //    }
+            //    Student student = db.Students.Find(id);
+            //    if (student == null)
+            //    {
+            //        return HttpNotFound();
+            //    }
+
+            //    var results = from c in db.Courses
+            //                  select new
+            //                  {
+            //                      c.Id,
+            //                      c.Name,
+            //                      c.Room,
+            //                      Checked = ((from ab in db.Courses
+            //                                  where (ab.Id == id) &
+            //                                        (ab.Id == c.Id)
+            //                                  select ab).Any())
+            //                  };
+
+            //    var myViewModel1 = new StudentsViewModel();
+
+            //    myViewModel1.StudentId = id.Value;
+            //    myViewModel1.Name = student.Name;
+            //    myViewModel1.LastName = student.LastName;
+            //    myViewModel1.Stipend = student.Stipend;
+            //    myViewModel1.SizeStipend = student.SizeStipend;
+
+            //    var myCheckboxList = new List<CheckBoxViewModel>();
+
+            //    foreach (var item in results)
+            //    {
+            //        myCheckboxList.Add(new CheckBoxViewModel
+            //        {
+            //            Id = item.Id,
+            //            Name = item.Name,
+            //            Checked = item.Checked,
+            //        });
+            //    }
+
+            //    myViewModel1.Courses = myCheckboxList;
+
+          return View();
+            //    }
         }
 
         // Create
@@ -77,16 +132,8 @@ namespace StudentCourses.Controllers
         // GET: Users/Edit/5
         public ActionResult Edit(int? id)
         {
-
-
-            // User user = db.Users.Find(id);
-
-            UserDto userDtos = _userService.GetUser(id.Value);
-            if (userDtos == null)
-            {
-                return HttpNotFound();
-            }
-            return View();
+            UserDto userDto = _userService.GetUser(id);
+             return View();
         }
 
         // POST: Users/Edit/5
@@ -100,18 +147,19 @@ namespace StudentCourses.Controllers
             {
 
                 var userEntity = UserViewMapping.ToUserDto(userView);
-                _userService.Update(userEntity);
+                _userService.Create(userEntity);
+                _userService.Save();
                 ////var result = UserMapping.ToUser(userView);  // implicit
                 //// conversion from RegisterViewModel to User Model
-
                 //User uv = result; // see implicit conversion
-
                 //db.Users.Add(uv);
                 //db.SaveChanges();
                 return RedirectToAction("Index");
-                ////db.Entry(user).State = EntityState.Modified;
-                ////db.SaveChanges();
-                ////return RedirectToAction("Index");
+                //_userService.Update(userEntity);
+                //_userService.Save();
+                //////db.Entry(user).State = EntityState.Modified;
+                //////db.SaveChanges();
+                //return RedirectToAction("Index");
             }
             return View(userView);
         }

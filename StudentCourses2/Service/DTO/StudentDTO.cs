@@ -11,5 +11,6 @@ namespace Service.DTO
         public string LastName { get; set; }
         public bool Stipend { get; set; }
         public int SizeStipend { get; set; }
+        public ICollection<CourseDTO> Courses { get; set; }
     }
 }

@@ -24,7 +24,7 @@ namespace Data.Repositories
             return _db.Courses.Include(o => o.Students);
         }
 
-        public Course Get(int id)
+        public Course Get(int? id)
         {
             return _db.Courses.Find(id);
         }

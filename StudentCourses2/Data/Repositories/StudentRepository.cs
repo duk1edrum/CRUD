@@ -17,7 +17,7 @@ namespace Data.Repositories
        
         public StudentRepository (StudentContext context)
         {
-            this._db = new StudentContext("StudentCoursesDb");
+            this._db = new StudentContext("CrudDb");
         }
 
         public IEnumerable<Student> GetAll()
@@ -25,7 +25,7 @@ namespace Data.Repositories
             return _db.Students;
         }
 
-        public Student Get(int id)
+        public Student Get(int? id)
         {
             return _db.Students.Find(id);
         }

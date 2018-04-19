@@ -69,9 +69,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\StudentContext.cs" />
-    <Compile Include="Migrations\201803291438344_Firstmigrations.cs" />
-    <Compile Include="Migrations\201803291438344_Firstmigrations.Designer.cs">
-      <DependentUpon>201803291438344_Firstmigrations.cs</DependentUpon>
+    <Compile Include="Migrations\201804191534226_1st.cs" />
+    <Compile Include="Migrations\201804191534226_1st.Designer.cs">
+      <DependentUpon>201804191534226_1st.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804191737058_2nd.cs" />
+    <Compile Include="Migrations\201804191737058_2nd.Designer.cs">
+      <DependentUpon>201804191737058_2nd.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Course.cs" />
@@ -90,10 +94,12 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201803291438344_Firstmigrations.resx">
-      <DependentUpon>201803291438344_Firstmigrations.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201804191534226_1st.resx">
+      <DependentUpon>201804191534226_1st.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804191737058_2nd.resx">
+      <DependentUpon>201804191737058_2nd.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
