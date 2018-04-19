@@ -83,5 +83,10 @@ namespace Service.Services
         {
             Database.Users.Save();
         }
+
+        public void Delete(int? id)
+        {
+            Database.Users.Delete(id.Value);
+        }
     }
 }

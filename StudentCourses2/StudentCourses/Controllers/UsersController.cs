@@ -128,8 +128,7 @@ namespace StudentCourses.Controllers
             UserViewModel userView = new UserViewModel();
             if (id.HasValue && id != 0)
             {
-                UserDto userDto = _userService.GetUser(id.Value);
-                UserViewMapping.ToUserView(userDto);
+                UserViewModel userEntity = UserViewMapping.ToUserView(_userService.GetUser(id));
             }
             return View();
         }
@@ -149,31 +148,31 @@ namespace StudentCourses.Controllers
             return View(userView);
         }
 
-        //// GET: Users/Delete/5
-        //public ActionResult Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    User user = db.Users.Find(id);
-        //    if (user == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(user);
-        //}
+        // GET: Users/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            _userService.Delete(id);
+            //if (userView == null)
+            //{
+            //    return HttpNotFound();
+            //}
+            return View();
+        }
 
-        //// POST: Users/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult DeleteConfirmed(int id)
-        //{
-        //    User user = db.Users.Find(id);
-        //    db.Users.Remove(user);
-        //    db.SaveChanges();
-        //    return RedirectToAction("Index");
-        //}
+        // POST: Users/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+
+            _userService.Delete(id);
+            _userService.Save();
+            return RedirectToAction("Index");
+        }
 
         //protected override void Dispose(bool disposing)
         //{

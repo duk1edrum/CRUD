@@ -13,6 +13,7 @@ namespace Service.Interfaces
         IEnumerable<UserDto> GetUsers();
         void Update(UserDto userDto);
         void Create(UserDto userDto);
+        void Delete(int? id);
         void Save();
         void Dispose();
        
