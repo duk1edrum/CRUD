@@ -6,6 +6,7 @@ using Data.Repositories;
 using Service.DTO;
 using Service.Infrastructure;
 using Service.Interfaces;
+using Service.Mapping;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -55,6 +56,26 @@ namespace Service.Services
         public void Dispose()
         {
             Database.Dispose();
+        }
+
+        public void Create(StudentDTO studentDTO)
+        {
+            Database.Students.Create(StudentMapping.ToStudent(studentDTO));
+        }
+
+        public void Update(StudentDTO studentDTO)
+        {
+            Database.Students.Update(StudentMapping.ToStudent(studentDTO));
+        }
+
+        public void Delete(StudentDTO studentDTO)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Save()
+        {
+            Database.Students.Save();
         }
     }
 }

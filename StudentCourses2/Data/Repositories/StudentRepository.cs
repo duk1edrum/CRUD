@@ -20,6 +20,10 @@ namespace Data.Repositories
             this._db = new StudentContext("CrudDb");
         }
 
+        public StudentRepository()
+        {
+        }
+
         public IEnumerable<Student> GetAll()
         {
             return _db.Students;

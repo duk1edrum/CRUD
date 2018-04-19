@@ -1,7 +1,4 @@
-﻿@*@model IEnumerable<StudentCourses.ViewModels.StudentsViewModel>*@
-@*@model IEnumerable<Data.Models.Student>*@
-
-@model IEnumerable<StudentCourses.ViewModels.StudentViewModel>
+﻿@model IEnumerable<StudentCourses.ViewModels.StudentViewModel>
 
 
 @{
@@ -28,9 +25,9 @@
             @Html.DisplayNameFor(model => model.SizeStipend)
         </th>
 
-        @*<th>
+        <th>
             @Html.DisplayNameFor(model => model.Courses)
-        </th>*@
+        </th>
     </tr>
 
 @foreach (var item in Model) {
@@ -47,9 +44,9 @@
         <td>
             @Html.DisplayFor(modelItem => item.SizeStipend)
         </td>
-        @*<td>
+        <td>
             @Html.DisplayFor(modelItem => item.Courses)
-        </td>*@
+        </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.StudentId }) |
             @Html.ActionLink("Details", "Details", new { id=item.StudentId }) |

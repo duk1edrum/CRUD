@@ -86,7 +86,7 @@ namespace StudentCourses.Controllers
 
             //    myViewModel1.Courses = myCheckboxList;
 
-          return View();
+            return View();
             //    }
         }
 
@@ -99,10 +99,7 @@ namespace StudentCourses.Controllers
             if (id.HasValue && id != 0)
             {
                 UserDto userDto = _userService.GetUser(id.Value);
-                userView.Name = userDto.Name;
-                userView.LastName = userDto.LastName;
-                userView.Email = userDto.Login;
-                userView.Password = userDto.Password;
+                UserViewMapping.ToUserView(userDto);
             }
             return View(userView);
         }
@@ -113,27 +110,28 @@ namespace StudentCourses.Controllers
         [AllowAnonymous]
         public ActionResult Create(UserViewModel userView)
         {
-            if (userView.UserViewId == 0)
-            {
+            
                 var userEntity = UserViewMapping.ToUserDto(userView);
                 _userService.Create(userEntity);
+
                 
-                if (userEntity.Id > 0)
-                {
-                    
-                    return RedirectToAction("Index");
-                }
-            }
-            _userService.Save();
             
+            _userService.Save();
+
             return View();
         }
 
         // GET: Users/Edit/5
         public ActionResult Edit(int? id)
         {
-            UserDto userDto = _userService.GetUser(id);
-             return View();
+            //UserDto userDto = _userService.GetUser(id);
+            UserViewModel userView = new UserViewModel();
+            if (id.HasValue && id != 0)
+            {
+                UserDto userDto = _userService.GetUser(id.Value);
+                UserViewMapping.ToUserView(userDto);
+            }
+            return View();
         }
 
         // POST: Users/Edit/5
@@ -145,21 +143,8 @@ namespace StudentCourses.Controllers
         {
             if (ModelState.IsValid)
             {
-
-                var userEntity = UserViewMapping.ToUserDto(userView);
-                _userService.Create(userEntity);
-                _userService.Save();
-                ////var result = UserMapping.ToUser(userView);  // implicit
-                //// conversion from RegisterViewModel to User Model
-                //User uv = result; // see implicit conversion
-                //db.Users.Add(uv);
-                //db.SaveChanges();
-                return RedirectToAction("Index");
-                //_userService.Update(userEntity);
-                //_userService.Save();
-                //////db.Entry(user).State = EntityState.Modified;
-                //////db.SaveChanges();
-                //return RedirectToAction("Index");
+               // UserDto userDto = _userService.GetUser(id.Value);
+               // UserViewMapping.ToUserView(userDto);
             }
             return View(userView);
         }

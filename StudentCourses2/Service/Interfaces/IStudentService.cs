@@ -11,8 +11,9 @@ namespace Service.Interfaces
         IEnumerable<StudentDTO> GetStudents();
         void Dispose();
 
-        //StudentDTO Create();
-        //StudentDTO Update();
-        //StudentDTO Delete();
+        void Create(StudentDTO studentDTO);
+        void Update(StudentDTO studentDTO);
+        void Delete(StudentDTO studentDTO);
+        void Save();
     }
 }
