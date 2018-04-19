@@ -7,6 +7,7 @@ using Data.Repositories;
 using Service.DTO;
 using Service.Infrastructure;
 using Service.Interfaces;
+using Service.Mapping;
 
 namespace Service.Services
 {
@@ -39,13 +40,15 @@ namespace Service.Services
 
         public UserDto GetUser(int? id)
         {
+            
             if (id == null)
                 throw new ValidationException("User has`nt Id", "");
+
             var user = Database.Users.Get(id.Value);
 
             if (user == null)
                 throw new ValidationException("User not found", "");
-
+            
             return new UserDto
             {
                 Id = user.Id,
@@ -72,12 +75,26 @@ namespace Service.Services
 
         public void Create(User user)
         {
-            Database.Users.Create(user);
+            //var toUserDto = UserMapping.ToUserDto(user);
+          //  var uv = toUserDto;
+
+           Database.Users.Create(user);
         }
 
         public void Update()
         {
             throw new NotImplementedException();
+        }
+        
+
+        public void Update(UserDto userDto)
+        {
+            Database.Users.Update(UserMapping.ToUser(userDto));
+        }
+
+        public void Create(UserDto userDto)
+        {
+            Database.Users.Create(UserMapping.ToUser(userDto));
         }
 
         public void Save()

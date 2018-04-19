@@ -11,8 +11,8 @@ namespace Service.Interfaces
         //void ShowUsder(UserDto userDto);
         UserDto GetUser(int? id);
         IEnumerable<UserDto> GetUsers();
-        void Update();
-        void Create(User user);
+        void Update(UserDto userDto);
+        void Create(UserDto userDto);
         void Save();
         void Dispose();
        

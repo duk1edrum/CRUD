@@ -1,11 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web.Mvc;
 using AutoMapper;
+using Data.Interfaces;
 using Data.Models;
+using Data.Repositories;
 using Service.DTO;
 using Service.Interfaces;
 using Service.Services;
+using StudentCourses.Mapping;
 using StudentCourses.ViewModels;
 
 namespace StudentCourses.Controllers
@@ -27,7 +31,7 @@ namespace StudentCourses.Controllers
             IEnumerable<UserDto> userDtos = _userService.GetUsers();
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<UserDto, UserViewModel>()).CreateMapper();
             var users = mapper.Map<IEnumerable<UserDto>, List<UserViewModel>>(userDtos);
-
+            //var users = UserViewMapping.ToUserView(userDtos);
             return View(users.ToList());
         }
 
@@ -56,104 +60,61 @@ namespace StudentCourses.Controllers
         {
             if (userView.UserViewId == 0)
             {
-                User userEntity = new User
-                {
-                    Name = userView.Name,
-                    LastName = userView.LastName,
-                    Login = userView.Email,
-                    Password = userView.Password,
-                };
+                var userEntity = UserViewMapping.ToUserDto(userView);
                 _userService.Create(userEntity);
-                _userService.Save();
+                
                 if (userEntity.Id > 0)
                 {
-
+                    
                     return RedirectToAction("Index");
                 }
             }
+            _userService.Save();
             
             return View();
         }
 
+        // GET: Users/Edit/5
+        public ActionResult Edit(int? id)
+        {
 
 
+            // User user = db.Users.Find(id);
 
-        //// GET: Users/Details/5
-        //public ActionResult Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    User user = db.Users.Find(id);
-        //    if (user == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(user);
-        //}
+            UserDto userDtos = _userService.GetUser(id.Value);
+            if (userDtos == null)
+            {
+                return HttpNotFound();
+            }
+            return View();
+        }
 
-        //// GET: Users/Create
-        ////public ActionResult Create()
-        ////{
-        ////    return View();
-        ////}
-        ////
-        ////// POST: Users/Create
-        ////// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        ////// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        ////[HttpPost]
-        ////[ValidateAntiForgeryToken]
-        ////public ActionResult Create([Bind(Include = "UserId,Name,LastName,Login,Password")] User user)
-        ////{
-        ////    if (ModelState.IsValid)
-        ////    {
-        ////        db.Users.Add(user);
-        ////        db.SaveChanges();
-        ////        return RedirectToAction("Index");
-        ////    }
-        ////
-        ////    return View(user);
-        ////}
+        // POST: Users/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "UserId,Name,LastName,Login,Password")] UserViewModel userView)
+        {
+            if (ModelState.IsValid)
+            {
 
-        //// GET: Users/Edit/5
-        //public ActionResult Edit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    User user = db.Users.Find(id);
-        //    if (user == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View();
-        //}
+                var userEntity = UserViewMapping.ToUserDto(userView);
+                _userService.Update(userEntity);
+                ////var result = UserMapping.ToUser(userView);  // implicit
+                //// conversion from RegisterViewModel to User Model
 
-        //// POST: Users/Edit/5
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        //// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit([Bind(Include = "UserId,Name,LastName,Login,Password")] UserViewModel userView)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        var result = UserMapping.ToUser(userView);  // implicit
-        //        // conversion from RegisterViewModel to User Model
+                //User uv = result; // see implicit conversion
 
-        //        User uv = result; // see implicit conversion
-
-        //        db.Users.Add(uv);
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //        //db.Entry(user).State = EntityState.Modified;
-        //        //db.SaveChanges();
-        //        //return RedirectToAction("Index");
-        //    }
-        //    return View(userView);
-        //}
+                //db.Users.Add(uv);
+                //db.SaveChanges();
+                return RedirectToAction("Index");
+                ////db.Entry(user).State = EntityState.Modified;
+                ////db.SaveChanges();
+                ////return RedirectToAction("Index");
+            }
+            return View(userView);
+        }
 
         //// GET: Users/Delete/5
         //public ActionResult Delete(int? id)
