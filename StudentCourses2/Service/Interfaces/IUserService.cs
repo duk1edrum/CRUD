@@ -15,7 +15,7 @@ namespace Service.Interfaces
         void Create(UserDto userDto);
         void Delete(int? id);
         void Save();
-        void Dispose();
+        //void Dispose();
        
     }
 }

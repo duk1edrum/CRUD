@@ -11,7 +11,7 @@ namespace StudentCourses.Mapping
     {
         public static UserViewModel ToUserView(this UserDto userDto)
         {
-            return new UserViewModel ()
+            return new UserViewModel()
             {
                 UserViewId = userDto.Id,
                 Name = userDto.Name,
@@ -32,5 +32,6 @@ namespace StudentCourses.Mapping
                 Login = userView.Email,
             };
         }
+        
     }
 }

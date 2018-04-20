@@ -30,15 +30,20 @@ namespace StudentCourses.Controllers
         // GET: Users
         public ActionResult Index()
         {
-
             IEnumerable<UserDto> userDtos = _userService.GetUsers();
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<UserDto, UserViewModel>()).CreateMapper();
-            var users = mapper.Map<IEnumerable<UserDto>, List<UserViewModel>>(userDtos);
-            return View(users.ToList());
+
+            IEnumerable<UserViewModel> UserView = mapper.Map<IEnumerable<UserDto>, IEnumerable<UserViewModel>>(userDtos);
+                      
+
+            return View(UserView);
         }
 
         public ActionResult Details(int? id)
         {
+
+            UserViewModel userView = UserViewMapping.ToUserView(_userService.GetUser(id));
+
             // GET: Students/Details/5
             //public ActionResult Details(int? id)
             //{
@@ -86,7 +91,7 @@ namespace StudentCourses.Controllers
 
             //    myViewModel1.Courses = myCheckboxList;
 
-            return View();
+            return View(userView);
             //    }
         }
 
@@ -99,7 +104,7 @@ namespace StudentCourses.Controllers
             if (id.HasValue && id != 0)
             {
                 UserDto userDto = _userService.GetUser(id.Value);
-                UserViewMapping.ToUserView(userDto);
+                UserViewMapping.ToUserDto(userView);
             }
             return View(userView);
         }
@@ -110,12 +115,12 @@ namespace StudentCourses.Controllers
         [AllowAnonymous]
         public ActionResult Create(UserViewModel userView)
         {
-            
-                var userEntity = UserViewMapping.ToUserDto(userView);
-                _userService.Create(userEntity);
 
-                
-            
+            var userEntity = UserViewMapping.ToUserDto(userView);
+            _userService.Create(userEntity);
+
+
+
             _userService.Save();
 
             return View();
@@ -124,13 +129,10 @@ namespace StudentCourses.Controllers
         // GET: Users/Edit/5
         public ActionResult Edit(int? id)
         {
-            //UserDto userDto = _userService.GetUser(id);
-            UserViewModel userView = new UserViewModel();
-            if (id.HasValue && id != 0)
-            {
-                UserViewModel userEntity = UserViewMapping.ToUserView(_userService.GetUser(id));
-            }
-            return View();
+            UserDto userDto = _userService.GetUser(id);
+            UserViewModel userView = UserViewMapping.ToUserView(_userService.GetUser(id));
+
+            return View(userView);
         }
 
         // POST: Users/Edit/5
@@ -142,8 +144,9 @@ namespace StudentCourses.Controllers
         {
             if (ModelState.IsValid)
             {
-               // UserDto userDto = _userService.GetUser(id.Value);
-               // UserViewMapping.ToUserView(userDto);
+                _userService.Update(UserViewMapping.ToUserDto(userView));
+                _userService.Save();
+                return RedirectToAction("Index");
             }
             return View(userView);
         }
@@ -156,10 +159,7 @@ namespace StudentCourses.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             _userService.Delete(id);
-            //if (userView == null)
-            //{
-            //    return HttpNotFound();
-            //}
+            
             return View();
         }
 
@@ -174,14 +174,11 @@ namespace StudentCourses.Controllers
             return RedirectToAction("Index");
         }
 
-        //protected override void Dispose(bool disposing)
-        //{
-        //    UserService.Dispose();
-        //    base.Dispose(disposing);
-        //}
+        protected override void Dispose(bool disposing)
+        {
+            UserService.Dispose();
+            base.Dispose(disposing);
+        }
     }
 
-    internal interface IShowUsers<T>
-    {
-    }
 }

@@ -26,40 +26,36 @@ namespace Service.Services
             Database = new EFUnitOfWork();
         }
 
-        public static IEnumerable<UserDto> GetUsers()
+        public IEnumerable<UserDto> GetUsers()
         {
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<User, UserDto>()).CreateMapper();
             return mapper.Map<IEnumerable<User>, List<UserDto>>(Database.Users.GetAll());
+            // return Database.Users.GetAll();
+
         }
 
-        void IUserService.Dispose()
-        {
-            Dispose();
-        }
+
 
 
         public UserDto GetUser(int? id)
         {
-            //var user = UserMapping.ToUserDto0()
-            if (id == null)
-            {
-                throw new ValidationException("User has`nt Id", "");
-            }
+            //User user = Database.Users.Get(id);
+
+            ////var user = UserMapping.ToUserDto0()
+            //if (id == null)
+            //{
+            //    throw new ValidationException("User has`nt Id", "");
+            //}
             UserDto userDto = UserMapping.ToUserDto(Database.Users.Get(id));
-
-
-            if (userDto == null)
-            {
-                throw new ValidationException("User not found ! ", "");
-            }
-
-            return new UserDto();
+            
+            //if (user == null)
+            //{
+            //    throw new ValidationException("User not found ! ", "");
+            //}
+            return userDto;
+           // return new UserDto();
         }
-
-        IEnumerable<UserDto> IUserService.GetUsers()
-        {
-            return GetUsers();
-        }
+        
 
 
 
