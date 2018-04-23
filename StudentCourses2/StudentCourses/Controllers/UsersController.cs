@@ -99,6 +99,7 @@ namespace StudentCourses.Controllers
                 //_userService.Create(UserViewMapping.ToUserDto(user));
                 //
                 UserDto user = _userService.GetUser(userView.Id);
+                _userService.Create(user);
                 _userService.Update(user);
                 _userService.Save();
                 return RedirectToAction("Index");
