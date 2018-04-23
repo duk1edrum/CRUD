@@ -44,10 +44,10 @@ namespace Data.Repositories
             _db.Entry(student).State = System.Data.Entity.EntityState.Modified;
         }
 
-        //public IEnumerable<Student> Find(Func<Student,Boolean> predicate)
-        //{
-        //    return _db.Students.Where(predicate).ToList();
-        //}
+        public IEnumerable<Student> Find(Func<Student, Boolean> predicate)
+        {
+            return _db.Students.Where(predicate).ToList();
+        }
 
         public void Delete(int id)
         {

@@ -13,7 +13,7 @@ namespace StudentCourses.Mapping
         {
             return new UserViewModel()
             {
-                UserViewId = userDto.Id,
+                Id = userDto.Id,
                 Name = userDto.Name,
                 LastName = userDto.LastName,
                 Password = userDto.Password,
@@ -25,7 +25,7 @@ namespace StudentCourses.Mapping
         {
             return new UserDto()
             {
-                Id = userView.UserViewId,
+                Id = userView.Id,
                 Name = userView.Name,
                 LastName = userView.LastName,
                 Password = userView.Password,

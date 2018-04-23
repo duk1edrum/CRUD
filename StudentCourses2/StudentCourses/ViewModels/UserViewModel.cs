@@ -10,8 +10,8 @@ namespace StudentCourses.ViewModels
 {
    public class UserViewModel
     {
-        [Key]
-        public int UserViewId { get; set; }
+       
+        public int Id { get; set; }
 
         [Required(ErrorMessage = "First Name is required")]
         public string Name { get; set; }
@@ -19,16 +19,16 @@ namespace StudentCourses.ViewModels
         [Required(ErrorMessage = "Last Name is Required")]
         public string LastName { get; set; }
 
-        [Required(ErrorMessage = "Email Address is required")]
+        
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
 
-        [Required(ErrorMessage = "Password is Required")]
+        
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        [Required(ErrorMessage = "Password is Required")]
+       
         [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "Both Password fields must match.")]
         [DataType(DataType.Password)]
         public string ConfirmPassword { get; set; }

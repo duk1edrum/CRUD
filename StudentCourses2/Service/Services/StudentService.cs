@@ -46,10 +46,10 @@ namespace Service.Services
         {
             if (id == null)
                 throw new ValidationException("Student Id not Found", "");
-            var student = Database.Students.Get(id.Value);
-            if (student == null)
+           StudentDTO studentDto = StudentMapping.ToStudentDto(Database.Students.Get(id));
+            if (studentDto == null)
                 throw new ValidationException("Student Not Found", "");
-            return new StudentDTO { Id = student.StudentId, Name = student.Name, LastName = student.LastName, Stipend = student.Stipend, SizeStipend = student.Amount };
+            return studentDto;
 
         }
 

@@ -19,9 +19,6 @@ namespace StudentCourses.Controllers
     {
         private IUserService _userService;
 
-        private StudentContext _db = new StudentContext();
-
-
         public UsersController()
         {
             _userService = new UserService();
@@ -32,67 +29,18 @@ namespace StudentCourses.Controllers
         {
             IEnumerable<UserDto> userDtos = _userService.GetUsers();
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<UserDto, UserViewModel>()).CreateMapper();
+            var userView = mapper.Map<IEnumerable<UserDto>, IEnumerable<UserViewModel>>(userDtos);
 
-            IEnumerable<UserViewModel> UserView = mapper.Map<IEnumerable<UserDto>, IEnumerable<UserViewModel>>(userDtos);
-                      
-
-            return View(UserView);
+            return View(userView);
         }
 
         public ActionResult Details(int? id)
         {
 
-            UserViewModel userView = UserViewMapping.ToUserView(_userService.GetUser(id));
-
-            // GET: Students/Details/5
-            //public ActionResult Details(int? id)
-            //{
-            //    if (id == null)
-            //    {
-            //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            //    }
-            //    Student student = db.Students.Find(id);
-            //    if (student == null)
-            //    {
-            //        return HttpNotFound();
-            //    }
-
-            //    var results = from c in db.Courses
-            //                  select new
-            //                  {
-            //                      c.Id,
-            //                      c.Name,
-            //                      c.Room,
-            //                      Checked = ((from ab in db.Courses
-            //                                  where (ab.Id == id) &
-            //                                        (ab.Id == c.Id)
-            //                                  select ab).Any())
-            //                  };
-
-            //    var myViewModel1 = new StudentsViewModel();
-
-            //    myViewModel1.StudentId = id.Value;
-            //    myViewModel1.Name = student.Name;
-            //    myViewModel1.LastName = student.LastName;
-            //    myViewModel1.Stipend = student.Stipend;
-            //    myViewModel1.SizeStipend = student.SizeStipend;
-
-            //    var myCheckboxList = new List<CheckBoxViewModel>();
-
-            //    foreach (var item in results)
-            //    {
-            //        myCheckboxList.Add(new CheckBoxViewModel
-            //        {
-            //            Id = item.Id,
-            //            Name = item.Name,
-            //            Checked = item.Checked,
-            //        });
-            //    }
-
-            //    myViewModel1.Courses = myCheckboxList;
+            UserDto userDtos = _userService.GetUser(id);
+            var userView = UserViewMapping.ToUserView(userDtos);
 
             return View(userView);
-            //    }
         }
 
         // Create
@@ -158,8 +106,9 @@ namespace StudentCourses.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            UserViewMapping.ToUserView(_userService.GetUser(id));
             _userService.Delete(id);
-            
+
             return View();
         }
 
@@ -176,8 +125,12 @@ namespace StudentCourses.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            UserService.Dispose();
-            base.Dispose(disposing);
+            //EFUnitOfWork eFUnitOf = new EFUnitOfWork();
+
+            //eFUnitOf.Dispose();
+            //eFUnitOf.Dispose(disposing);
+            //UserService.Dispose();
+            //base.Dispose(disposing);
         }
     }
 

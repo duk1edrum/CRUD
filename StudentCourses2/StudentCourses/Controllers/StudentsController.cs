@@ -35,12 +35,19 @@ namespace StudentCourses.Controllers
             IEnumerable<StudentDTO> studentDtos = _studentService.GetStudents();
             var mapper = new AutoMapper.MapperConfiguration(cfg => cfg.CreateMap<StudentDTO, StudentViewModel>()).CreateMapper();
             var students = mapper.Map<IEnumerable<StudentDTO>, List<StudentViewModel>>(studentDtos);
+
             return View(students.ToList());
 
         }
 
         //GET: Students/Details/5
-        //public ActionResult Details(int? id)
+        public ActionResult Details(int? id)
+        {
+            StudentDTO studentDTO = _studentService.GetStudent(id);
+            var viewStudent = StudentViewMapping.ToStudentView(studentDTO);
+
+            return View(viewStudent);
+        }
         //{
         //    if (id == null)
         //    {
@@ -108,10 +115,10 @@ namespace StudentCourses.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(StudentViewModel studentView)
         {
-           
+
             if (ModelState.IsValid)
             {
-                var studentEntity = StudentViewMapping.ToUserDto(studentView);
+                var studentEntity = StudentViewMapping.ToStudentDto(studentView);
                 _studentService.Create(studentEntity);
                 _studentService.Save();
                 return RedirectToAction("Index");

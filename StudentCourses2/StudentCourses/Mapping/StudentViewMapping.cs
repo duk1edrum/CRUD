@@ -9,11 +9,11 @@ namespace StudentCourses.Mapping
 {
     public static class StudentViewMapping
     {
-        public static StudentViewModel ToUserView(this StudentDTO studentDto)
+        public static StudentViewModel ToStudentView(this StudentDTO studentDto)
         {
             return new StudentViewModel()
             {
-                StudentId = studentDto.Id,
+                Id = studentDto.Id,
                 Name = studentDto.Name,
                 LastName = studentDto.LastName,
                 Stipend = studentDto.Stipend,
@@ -22,11 +22,11 @@ namespace StudentCourses.Mapping
             };
         }
 
-        public static StudentDTO ToUserDto(this StudentViewModel studentView)
+        public static StudentDTO ToStudentDto(this StudentViewModel studentView)
         {
             return new StudentDTO()
             {
-                Id = studentView.StudentId,
+                Id = studentView.Id,
                 Name = studentView.Name,
                 LastName = studentView.LastName,
                 Stipend = studentView.Stipend,
