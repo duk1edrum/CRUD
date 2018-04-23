@@ -53,6 +53,7 @@ namespace StudentCourses.Controllers
             {
                 UserDto userDto = _userService.GetUser(id.Value);
                 UserViewMapping.ToUserDto(userView);
+                RedirectToAction("Index");
             }
             return View(userView);
         }
@@ -63,13 +64,13 @@ namespace StudentCourses.Controllers
         [AllowAnonymous]
         public ActionResult Create(UserViewModel userView)
         {
-
-            var userEntity = UserViewMapping.ToUserDto(userView);
-            _userService.Create(userEntity);
-
-
-
-            _userService.Save();
+            if (ModelState.IsValid)
+            {
+                var userEntity = UserViewMapping.ToUserDto(userView);
+                _userService.Create(userEntity);
+                _userService.Save();
+                return RedirectToAction("Index");
+            }
 
             return View();
         }
@@ -77,7 +78,7 @@ namespace StudentCourses.Controllers
         // GET: Users/Edit/5
         public ActionResult Edit(int? id)
         {
-            UserDto userDto = _userService.GetUser(id);
+            ///UserDto userDto = _userService.GetUser(id);
             UserViewModel userView = UserViewMapping.ToUserView(_userService.GetUser(id));
 
             return View(userView);
@@ -88,15 +89,21 @@ namespace StudentCourses.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "UserId,Name,LastName,Login,Password")] UserViewModel userView)
+        public ActionResult Edit([Bind(Include = "Id,Name,LastName,Login,Password,ConfirmPassword")] UserViewModel userView)
         {
             if (ModelState.IsValid)
             {
-                _userService.Update(UserViewMapping.ToUserDto(userView));
+                //var userEntity = _userService.GetUser(userView.Id);
+                //_userService.Delete(userEntity.Id);
+                //_userService.Create(userEntity);
+                //_userService.Create(UserViewMapping.ToUserDto(user));
+                //
+                UserDto user = _userService.GetUser(userView.Id);
+                _userService.Update(user);
                 _userService.Save();
                 return RedirectToAction("Index");
             }
-            return View(userView);
+            return View();
         }
 
         // GET: Users/Delete/5
