@@ -12,7 +12,7 @@ namespace Service.Mapping
         {
             return new StudentDTO()
             {
-                Id = student.StudentId,
+                Id = student.Id,
                 Name = student.Name,
                 LastName = student.LastName,
                 Stipend = student.Stipend,
@@ -25,7 +25,7 @@ namespace Service.Mapping
         {
             return new Student()
             {
-                StudentId = studentDto.Id,
+                Id = studentDto.Id,
                 Name = studentDto.Name,
                 LastName = studentDto.LastName,
                 Amount = studentDto.SizeStipend,

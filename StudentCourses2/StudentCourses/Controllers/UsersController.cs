@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -91,20 +92,41 @@ namespace StudentCourses.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Name,LastName,Login,Password,ConfirmPassword")] UserViewModel userView)
         {
-            if (ModelState.IsValid)
+
+
+
+            //var userEntity = _userService.GetUser(userView.Id);
+            //_userService.Delete(userEntity.Id);
+            //_userService.Create(userEntity);
+            //_userService.Create(UserViewMapping.ToUserDto(user));
+            //
+            UserDto user = _userService.GetUser(userView.Id);
+            if (userView.Id == null)
             {
-                //var userEntity = _userService.GetUser(userView.Id);
-                //_userService.Delete(userEntity.Id);
-                //_userService.Create(userEntity);
-                //_userService.Create(UserViewMapping.ToUserDto(user));
-                //
-                UserDto user = _userService.GetUser(userView.Id);
-                _userService.Create(user);
-                _userService.Update(user);
-                _userService.Save();
-                return RedirectToAction("Index");
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            return View();
+            if (TryUpdateModel(user))
+            {
+                try
+                {
+                    if (ModelState.IsValid)
+                    {
+                        _userService.Update(user);
+                        _userService.Save();
+                        return RedirectToAction("Index");
+                    }
+                }
+                catch (DataException /**/)
+                {
+                    ModelState.AddModelError("", "Enable to save Changes!");
+                }
+            }
+            ////_userService.Create(user);
+            //_userService.Update(user);
+            //_userService.Save();
+            //return RedirectToAction("Index");
+
+            return View(user);
         }
 
         // GET: Users/Delete/5

@@ -41,6 +41,7 @@ namespace Data.Repositories
         public void Update(User user)
         {
             _db.Entry(user).State = EntityState.Added;
+            //_db.Users.Add(user);
             _db.Entry(user).State = EntityState.Modified;
            
         }
