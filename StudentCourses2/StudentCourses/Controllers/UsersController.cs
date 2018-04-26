@@ -90,43 +90,18 @@ namespace StudentCourses.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,LastName,Login,Password,ConfirmPassword")] UserViewModel userView)
+        public ActionResult Edit( UserViewModel userView)
         {
-
-
-
-            //var userEntity = _userService.GetUser(userView.Id);
-            //_userService.Delete(userEntity.Id);
-            //_userService.Create(userEntity);
-            //_userService.Create(UserViewMapping.ToUserDto(user));
-            //
-            UserDto user = _userService.GetUser(userView.Id);
-            if (userView.Id == null)
+            UserViewModel userEntity = UserViewMapping.ToUserView(_userService.GetUser(userView.Id));
+            var user = UserViewMapping.ToUserDto(userEntity);
+            //UserDto user = _userService.GetUser(userView.Id);
+            if (ModelState.IsValid)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+              
+                _userService.Update(user);
+                return RedirectToAction("Index");
             }
-            if (TryUpdateModel(user))
-            {
-                try
-                {
-                    if (ModelState.IsValid)
-                    {
-                        _userService.Update(user);
-                        _userService.Save();
-                        return RedirectToAction("Index");
-                    }
-                }
-                catch (DataException /**/)
-                {
-                    ModelState.AddModelError("", "Enable to save Changes!");
-                }
-            }
-            ////_userService.Create(user);
-            //_userService.Update(user);
-            //_userService.Save();
-            //return RedirectToAction("Index");
-
-            return View(user);
+            return View(userEntity);
         }
 
         // GET: Users/Delete/5

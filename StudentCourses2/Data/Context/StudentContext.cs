@@ -36,7 +36,7 @@ namespace Data.Context
 
 
 
-            modelBuilder.Configurations.Add(new UserConfiguration());
+            //modelBuilder.Configurations.Add(new UserConfiguration());
 
             //User to Student One to Zero - or One to One 
             //modelBuilder.Entity<Student>()

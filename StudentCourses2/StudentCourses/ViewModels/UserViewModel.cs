@@ -12,8 +12,7 @@ namespace StudentCourses.ViewModels
    public class UserViewModel
     {
        [Key]
-       [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+       public int Id { get; set; }
 
         [Required(ErrorMessage = "First Name is required")]
         public string Name { get; set; }
