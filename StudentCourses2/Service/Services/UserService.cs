@@ -54,7 +54,8 @@ namespace Service.Services
 
         public void Update(UserDto userDto)
         {
-            Database.Users.Update(UserMapping.ToUser(userDto));
+            var userDtos = UserMapping.ToUser(userDto);
+            Database.Users.Update(userDtos);
         }
 
         public void Create(UserDto userDto)

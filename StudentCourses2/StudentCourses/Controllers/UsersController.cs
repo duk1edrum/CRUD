@@ -19,7 +19,7 @@ namespace StudentCourses.Controllers
     public class UsersController : Controller
     {
         private IUserService _userService;
-
+        private StudentContext _db;
         public UsersController()
         {
             _userService = new UserService();
@@ -34,7 +34,7 @@ namespace StudentCourses.Controllers
 
             return View(userView);
         }
-
+        // Detail : Users
         public ActionResult Details(int? id)
         {
 
@@ -44,8 +44,8 @@ namespace StudentCourses.Controllers
             return View(userView);
         }
 
-        // Create
-        // GET: 
+       
+        // GET: Create
         [HttpGet]
         public ActionResult Create(int? id)
         {
@@ -59,8 +59,8 @@ namespace StudentCourses.Controllers
             return View(userView);
         }
 
-        //Create:
-        //POST:
+        
+        //POST: Create
         [HttpPost]
         [AllowAnonymous]
         public ActionResult Create(UserViewModel userView)
@@ -76,48 +76,49 @@ namespace StudentCourses.Controllers
             return View();
         }
 
-        // GET: Users/Edit/5
+        // GET: Users/Edit
         public ActionResult Edit(int? id)
         {
-            ///UserDto userDto = _userService.GetUser(id);
             UserViewModel userView = UserViewMapping.ToUserView(_userService.GetUser(id));
 
             return View(userView);
         }
 
-        // POST: Users/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Users/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit( UserViewModel userView)
+        public ActionResult Edit(UserViewModel userView)
         {
+           
+            _userService.GetUser(userView.Id);
+
             UserViewModel userEntity = UserViewMapping.ToUserView(_userService.GetUser(userView.Id));
             var user = UserViewMapping.ToUserDto(userEntity);
-            //UserDto user = _userService.GetUser(userView.Id);
+
             if (ModelState.IsValid)
             {
-              
+                //_db.Entry(user).State = System.Data.Entity.EntityState.Modified;
+                //_db.SaveChanges();
                 _userService.Update(user);
                 return RedirectToAction("Index");
             }
-            return View(userEntity);
+            return View(user);
         }
 
-        // GET: Users/Delete/5
+        // GET: Users/Delete
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            UserViewMapping.ToUserView(_userService.GetUser(id));
+            //UserViewMapping.ToUserView(_userService.GetUser(id));
             _userService.Delete(id);
 
             return View();
         }
 
-        // POST: Users/Delete/5
+        // POST: Users/Delete
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
