@@ -1,4 +1,4 @@
-﻿@model Data.ViewModels.CoursesViewModel
+﻿@model StudentCourses.ViewModels.CourseViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -13,43 +13,28 @@
         <dt>
             @Html.DisplayNameFor(model => model.Name)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Name)
         </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.Room)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Room)
         </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.Free)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Free)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Students)
         </dt>
-
-        <dd>
-           @foreach (var item in Model.Students)
-           {
-               if (item.Checked)
-               {
-                   <div>@item.Name</div>
-               }
-           }
-        </dd>
-
+        
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.CourseId }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

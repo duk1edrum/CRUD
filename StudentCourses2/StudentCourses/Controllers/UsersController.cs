@@ -19,7 +19,6 @@ namespace StudentCourses.Controllers
     public class UsersController : Controller
     {
         private IUserService _userService;
-        private StudentContext _db;
         public UsersController()
         {
             _userService = new UserService();
@@ -53,7 +52,7 @@ namespace StudentCourses.Controllers
             if (id.HasValue && id != 0)
             {
                 UserDto userDto = _userService.GetUser(id.Value);
-                UserViewMapping.ToUserDto(userView);
+                UserViewMapping.ToUserDTO(userView);
                 RedirectToAction("Index");
             }
             return View(userView);
@@ -67,9 +66,9 @@ namespace StudentCourses.Controllers
         {
             if (ModelState.IsValid)
             {
-                var userEntity = UserViewMapping.ToUserDto(userView);
+                var userEntity = UserViewMapping.ToUserDTO(userView);
                 _userService.Create(userEntity);
-                _userService.Save();
+              
                 return RedirectToAction("Index");
             }
 
@@ -89,33 +88,27 @@ namespace StudentCourses.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(UserViewModel userView)
         {
-           
-            _userService.GetUser(userView.Id);
-
-            UserViewModel userEntity = UserViewMapping.ToUserView(_userService.GetUser(userView.Id));
-            var user = UserViewMapping.ToUserDto(userEntity);
+            //!!!! Валидация должна проверять View Model. Все операции потом!!!
 
             if (ModelState.IsValid)
             {
-                //_db.Entry(user).State = System.Data.Entity.EntityState.Modified;
-                //_db.SaveChanges();
-                _userService.Update(user);
+                //Была полная каша в наименованиях переменных. 
+                // Здесь всё просто. Модель валидна - замапили в дто и отдали сервису на обновление.
+                var dto = userView.ToUserDTO();
+                _userService.Update(dto);
                 return RedirectToAction("Index");
             }
-            return View(user);
+
+            return View(userView);
         }
 
         // GET: Users/Delete
         public ActionResult Delete(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            //UserViewMapping.ToUserView(_userService.GetUser(id));
-            _userService.Delete(id);
+            var dto = _userService.GetUser(id);
+            var view = UserViewMapping.ToUserView(dto); ;
 
-            return View();
+            return View(view);
         }
 
         // POST: Users/Delete
@@ -123,9 +116,8 @@ namespace StudentCourses.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-
-            _userService.Delete(id);
-            _userService.Save();
+           _userService.Delete(id);
+            
             return RedirectToAction("Index");
         }
 

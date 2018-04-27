@@ -9,11 +9,11 @@ namespace StudentCourses.ViewModels
 {
     public class CourseViewModel
     {
-        public int CourseId { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public int Room { get; set; }
         public bool Free { get; set; }
 
-       // public List<CheckBoxViewModel> Students  { get; set; }      
+        public List<CheckBoxViewModel> Students  { get; set; }      
     }
 }

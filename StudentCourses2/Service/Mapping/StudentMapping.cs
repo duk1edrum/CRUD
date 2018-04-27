@@ -21,18 +21,25 @@ namespace Service.Mapping
             };
         }
 
-        public static Student ToStudent(this StudentDTO studentDto)
+        public static void  ToStudent(this StudentDTO studentDto, Student student)
         {
-            return new Student()
+            
             {
-                Id = studentDto.Id,
-                Name = studentDto.Name,
-                LastName = studentDto.LastName,
-                Amount = studentDto.SizeStipend,
-               Stipend = studentDto.Stipend,
+                student.Id = studentDto.Id;
+                student.Name = studentDto.Name;
+                student.LastName = studentDto.LastName;
+                student.Amount = studentDto.SizeStipend;
+                student.Stipend = studentDto.Stipend;
                //Courses = studentDto.Courses,
                //User = studentDto.UserDto,
             };
+        }
+
+        public static Student ToStudent(this StudentDTO studentDto)
+        {
+            var entity = new Student();
+            studentDto.ToStudent(entity);
+            return entity;
         }
     }
 }

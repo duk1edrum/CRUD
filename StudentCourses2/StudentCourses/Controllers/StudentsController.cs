@@ -40,7 +40,7 @@ namespace StudentCourses.Controllers
 
         }
 
-        //GET: Students/Details/5
+        //GET: Students/Details
         public ActionResult Details(int? id)
         {
             StudentDTO studentDTO = _studentService.GetStudent(id);
@@ -48,53 +48,7 @@ namespace StudentCourses.Controllers
 
             return View(viewStudent);
         }
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Student student = db.Students.Find(id);
-        //    if (student == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-
-        //    var results = from c in db.Courses
-        //                  select new
-        //                  {
-        //                      c.Id,
-        //                      c.Name,
-        //                      c.Room,
-        //                      Checked = ((from ab in db.Courses
-        //                                  where (ab.Id == id) &
-        //                                        (ab.Id == c.Id)
-        //                                  select ab).Any())
-        //                  };
-
-        //    var myViewModel1 = new StudentsViewModel();
-
-        //    myViewModel1.StudentId = id.Value;
-        //    myViewModel1.Name = student.Name;
-        //    myViewModel1.LastName = student.LastName;
-        //    myViewModel1.Stipend = student.Stipend;
-        //    myViewModel1.SizeStipend = student.SizeStipend;
-
-        //    var myCheckboxList = new List<CheckBoxViewModel>();
-
-        //    foreach (var item in results)
-        //    {
-        //        myCheckboxList.Add(new CheckBoxViewModel
-        //        {
-        //            Id = item.Id,
-        //            Name = item.Name,
-        //            Checked = item.Checked,
-        //        });
-        //    }
-
-        //    myViewModel1.Courses = myCheckboxList;
-
-        //    return View(myViewModel1);
-
+       
 
         //GET: Students/Create
         public ActionResult Create(int? id)
@@ -118,129 +72,55 @@ namespace StudentCourses.Controllers
 
             if (ModelState.IsValid)
             {
-                var studentEntity = StudentViewMapping.ToStudentDto(studentView);
+                var studentEntity = StudentViewMapping.ToStudentDTO(studentView);
                 _studentService.Create(studentEntity);
-                _studentService.Save();
+             
                 return RedirectToAction("Index");
             }
 
             return View(studentView);
         }
 
-        //    // GET: Students/Edit/5
-        //    public ActionResult Edit(int? id)
-        //    {
-        //        if (id == null)
-        //        {
-        //            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //        }
-        //        Student student = db.Students.Find(id);
-        //        if (student == null)
-        //        {
-        //            return HttpNotFound();
-        //        }
+        // GET: Students/Edit/5
+        public ActionResult Edit(int? id)
+        {
+            StudentViewModel studentView = StudentViewMapping.ToStudentView(_studentService.GetStudent(id));
 
-        //        //var results = from c in db.Courses
-        //        //    select new
-        //        //    {
-        //        //        c.CourseId,
-        //        //        c.Name,
-        //        //        c.Room,
-        //        //        Checked = ((from ab in db.CoursesToStudents
-        //        //                       where (ab.StudentId == id) &
-        //        //                             (ab.CourseId == c.CourseId)
-        //        //                       select ab).Count() > 0)
-        //        //    };
+            return View(studentView);
+        }
 
-        //        var myViewModel1 = new StudentsViewModel();
+        // POST: Students/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(StudentViewModel studentView)
+        {
+            if (ModelState.IsValid)
+            {
+                var dto = studentView.ToStudentDTO();
+                _studentService.Update(dto);
+                return RedirectToAction("Index");
+            }
+            return View(studentView);
+        }
 
-        //        myViewModel1.StudentId = id.Value;
-        //        myViewModel1.Name = student.Name;
-        //        myViewModel1.LastName = student.LastName;
-        //        myViewModel1.Stipend = student.Stipend;
-        //        myViewModel1.SizeStipend = student.SizeStipend;
+        // GET: Students/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            var dto = _studentService.GetStudent(id);
+            var view = StudentViewMapping.ToStudentView(dto);
+            return View(view);
+        }
 
-        //        var myCheckboxList = new List<CheckBoxViewModel>();
-
-        //        //foreach (var item in results)
-        //        //{
-        //        //    myCheckboxList.Add(new CheckBoxViewModel
-        //        //    {
-        //        //        Id = item.CourseId,
-        //        //        Name = item.Name,
-        //        //        Checked = item.Checked,
-        //        //    });
-        //        //}
-
-        //        myViewModel1.Courses = myCheckboxList;
-
-        //        return View(myViewModel1);
-        //    }
-
-        //    // POST: Students/Edit/5
-        //    // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        //    // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        //    [HttpPost]
-        //    [ValidateAntiForgeryToken]
-        //    public ActionResult Edit(StudentsViewModel student)
-        //    {
-        //        if (ModelState.IsValid)
-        //        {
-        //            var myStudent = db.Students.Find(student.StudentId);
-        //            myStudent.Name = student.Name;
-        //            myStudent.LastName = student.LastName;
-        //            myStudent.Stipend = student.Stipend;
-        //            myStudent.SizeStipend = student.SizeStipend;
-
-        //            //foreach (var item in db.CoursesToStudents)
-        //            //{
-        //            //    if (item.StudentId == student.StudentId)
-        //            //    {
-        //            //        db.Entry(item).State = System.Data.Entity.EntityState.Deleted;
-        //            //    }
-        //            //}
-
-        //            //foreach (var item in student.Courses)
-        //            //{
-        //            //    if (item.Checked)
-        //            //    {
-        //            //        db.CoursesToStudents.Add(
-        //            //            new CourseToStudent() {StudentId = student.StudentId, CourseId = item.Id});
-        //            //    }
-        //            //}
-
-        //            // db.Entry(student).State = EntityState.Modified;
-        //            db.SaveChanges();
-        //            return RedirectToAction("Index");
-        //        }
-        //        return View(student);
-        //    }
-
-        //    // GET: Students/Delete/5
-        //    public ActionResult Delete(int? id)
-        //    {
-        //        if (id == null)
-        //        {
-        //            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //        }
-        //        Student student = db.Students.Find(id);
-        //        if (student == null)
-        //        {
-        //            return HttpNotFound();
-        //        }
-        //        return View(student);
-        //    }
-
-        //    // POST: Students/Delete/5
-        //    [HttpPost, ActionName("Delete")]
-        //    [ValidateAntiForgeryToken]
-        //    public ActionResult DeleteConfirmed(int id)
-        //    {
-        //        Student student = db.Students.Find(id);
-        //        db.Students.Remove(student);
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
+        // POST: Students/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            _studentService.Delete(id);
+            return RedirectToAction("Index");
+        }
 
         //    protected override void Dispose(bool disposing)
         //    {

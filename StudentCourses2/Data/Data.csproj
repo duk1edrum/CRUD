@@ -70,57 +70,9 @@
   <ItemGroup>
     <Compile Include="Config\UserConfiguration.cs" />
     <Compile Include="Context\StudentContext.cs" />
-    <Compile Include="Migrations\201804191534226_1st.cs" />
-    <Compile Include="Migrations\201804191534226_1st.Designer.cs">
-      <DependentUpon>201804191534226_1st.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201804191737058_2nd.cs" />
-    <Compile Include="Migrations\201804191737058_2nd.Designer.cs">
-      <DependentUpon>201804191737058_2nd.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201804191946290_3.cs" />
-    <Compile Include="Migrations\201804191946290_3.Designer.cs">
-      <DependentUpon>201804191946290_3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201804230601482_1.cs" />
-    <Compile Include="Migrations\201804230601482_1.Designer.cs">
-      <DependentUpon>201804230601482_1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201804231947510_student user relation deleted.cs" />
-    <Compile Include="Migrations\201804231947510_student user relation deleted.Designer.cs">
-      <DependentUpon>201804231947510_student user relation deleted.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201804231954439_User Id HasKey Fluent Api.cs" />
-    <Compile Include="Migrations\201804231954439_User Id HasKey Fluent Api.Designer.cs">
-      <DependentUpon>201804231954439_User Id HasKey Fluent Api.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201804232005410_User Flunt api.cs" />
-    <Compile Include="Migrations\201804232005410_User Flunt api.Designer.cs">
-      <DependentUpon>201804232005410_User Flunt api.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201804250724504_DatabaseGeneratedOptoins.cs" />
-    <Compile Include="Migrations\201804250724504_DatabaseGeneratedOptoins.Designer.cs">
-      <DependentUpon>201804250724504_DatabaseGeneratedOptoins.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201804250734563_USERiD DATABASEGE.cs" />
-    <Compile Include="Migrations\201804250734563_USERiD DATABASEGE.Designer.cs">
-      <DependentUpon>201804250734563_USERiD DATABASEGE.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201804250740247_123.cs" />
-    <Compile Include="Migrations\201804250740247_123.Designer.cs">
-      <DependentUpon>201804250740247_123.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201804251237071_user Id.cs" />
-    <Compile Include="Migrations\201804251237071_user Id.Designer.cs">
-      <DependentUpon>201804251237071_user Id.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201804251239487_Dropceater allways.cs" />
-    <Compile Include="Migrations\201804251239487_Dropceater allways.Designer.cs">
-      <DependentUpon>201804251239487_Dropceater allways.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201804251244170_Student change to Id from Student Id.cs" />
-    <Compile Include="Migrations\201804251244170_Student change to Id from Student Id.Designer.cs">
-      <DependentUpon>201804251244170_Student change to Id from Student Id.cs</DependentUpon>
+    <Compile Include="Migrations\201804261952290_1st.cs" />
+    <Compile Include="Migrations\201804261952290_1st.Designer.cs">
+      <DependentUpon>201804261952290_1st.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Course.cs" />
@@ -139,44 +91,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201804191534226_1st.resx">
-      <DependentUpon>201804191534226_1st.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804191737058_2nd.resx">
-      <DependentUpon>201804191737058_2nd.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804191946290_3.resx">
-      <DependentUpon>201804191946290_3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804230601482_1.resx">
-      <DependentUpon>201804230601482_1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804231947510_student user relation deleted.resx">
-      <DependentUpon>201804231947510_student user relation deleted.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804231954439_User Id HasKey Fluent Api.resx">
-      <DependentUpon>201804231954439_User Id HasKey Fluent Api.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804232005410_User Flunt api.resx">
-      <DependentUpon>201804232005410_User Flunt api.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804250724504_DatabaseGeneratedOptoins.resx">
-      <DependentUpon>201804250724504_DatabaseGeneratedOptoins.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804250734563_USERiD DATABASEGE.resx">
-      <DependentUpon>201804250734563_USERiD DATABASEGE.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804250740247_123.resx">
-      <DependentUpon>201804250740247_123.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804251237071_user Id.resx">
-      <DependentUpon>201804251237071_user Id.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804251239487_Dropceater allways.resx">
-      <DependentUpon>201804251239487_Dropceater allways.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804251244170_Student change to Id from Student Id.resx">
-      <DependentUpon>201804251244170_Student change to Id from Student Id.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201804261952290_1st.resx">
+      <DependentUpon>201804261952290_1st.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

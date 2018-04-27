@@ -25,7 +25,7 @@ namespace Data.Repositories
 
         public EFUnitOfWork()
         {
-            
+            _db = new StudentContext("CrudDb");
         }
 
         public IRepository<User> Users

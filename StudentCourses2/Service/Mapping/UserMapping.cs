@@ -21,16 +21,20 @@ namespace Service.Mapping
             };
         }
 
+        public static void ToUser(this UserDto userDto, User user)
+        {
+            user.Id = userDto.Id;
+            user.Name = userDto.Name;
+            user.LastName = userDto.LastName;
+            user.Password = userDto.Password;
+            user.Login = userDto.Login;
+        }
+
         public static User ToUser(this UserDto userDto)
         {
-            return new User()
-            {
-                Id = userDto.Id,
-                Name = userDto.Name,
-                LastName = userDto.LastName,
-                Password = userDto.Password,
-                Login = userDto.Login,
-            };
+            var ent = new User();
+            userDto.ToUser(ent);
+            return ent;
         }
     }
 }

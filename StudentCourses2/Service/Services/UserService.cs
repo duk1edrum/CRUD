@@ -54,23 +54,40 @@ namespace Service.Services
 
         public void Update(UserDto userDto)
         {
-            var userDtos = UserMapping.ToUser(userDto);
-            Database.Users.Update(userDtos);
+
+            var entity = Database.Users.Get(userDto.Id);
+
+            //Посмотри как я переделал маппер.
+            //Здесь была проблема. Ты когда мапил, возвращал НОВЫЙ обьект, но 
+            // dbContext уже имел у себя в списке сущность с ID = 2.
+            // Когда ты пытался сохранить, у тебя была коллизия, так как ты dbContext передавал НОВЫЙ обьект
+            // с таким же ID.
+            userDto.ToUser(entity);
+
+            //Убрал SaveChanges() из этого метода. Сервисы решают когда нужно сохранить БД.
+            
+            Database.Users.Update(entity);
+
+            // Сохраняем конкретный репозиторий. 
+            // Здесь могло бы быть ещё так:
+            // Database.Courses.Add(new Course);
+            // Database.Courses.Save();
+            // Но это тоже не совсем правильно ))))
+            Database.Users.Save();
+            
         }
 
         public void Create(UserDto userDto)
         {
             Database.Users.Create(UserMapping.ToUser(userDto));
+            Database.Students.Save();
         }
 
-        public void Save()
-        {
-            Database.Users.Save();
-        }
 
         public void Delete(int? id)
         {
             Database.Users.Delete(id.Value);
+            Database.Students.Save();
         }
     }
 }

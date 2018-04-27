@@ -22,17 +22,24 @@ namespace StudentCourses.Mapping
             };
         }
 
-        public static StudentDTO ToStudentDto(this StudentViewModel studentView)
+        public static void ToStudentDto(this StudentViewModel studentView,StudentDTO studentDTO)
         {
-            return new StudentDTO()
+            
             {
-                Id = studentView.Id,
-                Name = studentView.Name,
-                LastName = studentView.LastName,
-                Stipend = studentView.Stipend,
-                SizeStipend = studentView.SizeStipend,
+                studentDTO.Id = studentView.Id;
+                studentDTO.Name = studentView.Name;
+                studentDTO.LastName = studentView.LastName;
+                studentDTO.Stipend = studentView.Stipend;
+                studentDTO.SizeStipend = studentView.SizeStipend;
                 //new Courses = studentView.Courses,
             };
+        }
+
+        public static StudentDTO ToStudentDTO(this StudentViewModel studentView)
+        {
+            var ent = new StudentDTO();
+            studentView.ToStudentDto(ent);
+            return ent;
         }
     }
 }

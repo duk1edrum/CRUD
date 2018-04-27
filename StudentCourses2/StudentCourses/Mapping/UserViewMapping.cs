@@ -21,17 +21,23 @@ namespace StudentCourses.Mapping
             };
         }
 
-        public static UserDto ToUserDto(this UserViewModel userView)
+        public static void ToUserDto(this UserViewModel userView,UserDto userDto)
         {
-            return new UserDto()
+           
             {
-                Id = userView.Id,
-                Name = userView.Name,
-                LastName = userView.LastName,
-                Password = userView.Password,
-                Login = userView.Email,
+                userDto.Id = userView.Id;
+                userDto.Name = userView.Name;
+                userDto.LastName = userView.LastName;
+                userDto.Password = userView.Password;
+                userDto.Login = userView.Email;
             };
         }
-        
+        public static UserDto ToUserDTO(this UserViewModel userView)
+        {
+            var ent = new UserDto();
+            userView.ToUserDto(ent);
+            return ent;
+        }
+
     }
 }

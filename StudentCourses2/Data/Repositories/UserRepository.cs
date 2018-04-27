@@ -40,11 +40,7 @@ namespace Data.Repositories
 
         public void Update(User user)
         {
-
-            _db.Entry(user).State = EntityState.Added;
             _db.Entry(user).State = EntityState.Modified;
-            _db.SaveChanges();
-
         }
 
         public void Delete(int id)

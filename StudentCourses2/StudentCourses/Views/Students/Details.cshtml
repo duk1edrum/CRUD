@@ -1,4 +1,4 @@
-﻿@model StudentCourses.ViewModels.StudentsViewModel
+﻿@model StudentCourses.ViewModels.StudentViewModel
 @{
     ViewBag.Title = "Details";
 }
@@ -46,20 +46,11 @@
         </dt>
 
        
-        <dd>
 
-            @foreach (var item in Model.Courses)
-            {
-                if (item.Checked)
-                {
-                    <div>@item.Name</div>
-                }
-            }
-        </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.StudentId }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

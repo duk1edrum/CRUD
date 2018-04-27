@@ -13,7 +13,7 @@ namespace Service.Interfaces
 
         void Create(StudentDTO studentDTO);
         void Update(StudentDTO studentDTO);
-        void Delete(StudentDTO studentDTO);
-        void Save();
+        void Delete(int? id);
+       
     }
 }

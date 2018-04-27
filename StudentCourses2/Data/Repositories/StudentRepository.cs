@@ -3,6 +3,7 @@ using Data.Interfaces;
 using Data.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -41,7 +42,7 @@ namespace Data.Repositories
 
         public void Update(Student student)
         {
-            _db.Entry(student).State = System.Data.Entity.EntityState.Modified;
+            _db.Entry(student).State = EntityState.Modified;
         }
 
         public IEnumerable<Student> Find(Func<Student, Boolean> predicate)

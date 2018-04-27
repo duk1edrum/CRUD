@@ -25,16 +25,7 @@ namespace Service.Services
         {
             Database = uow;
         }
-
-        public void Create()
-        {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Student, StudentDTO>()).CreateMapper();
-
-
-            //return mapper.Map<IEnumerable<Student>, List<StudentDTO>>(Database.Students.Create());
-           // var studentCreate = Database.Students.Create();
-
-        }
+        
 
         public IEnumerable<StudentDTO> GetStudents()
         {
@@ -61,21 +52,26 @@ namespace Service.Services
         public void Create(StudentDTO studentDTO)
         {
             Database.Students.Create(StudentMapping.ToStudent(studentDTO));
+            Database.Students.Save();
         }
 
         public void Update(StudentDTO studentDTO)
         {
-            Database.Students.Update(StudentMapping.ToStudent(studentDTO));
-        }
+            var entity = Database.Students.Get(studentDTO.Id);
 
-        public void Delete(StudentDTO studentDTO)
-        {
-            throw new NotImplementedException();
-        }
+            studentDTO.ToStudent(entity);
 
-        public void Save()
-        {
+            Database.Students.Update(entity);
+
             Database.Students.Save();
         }
+
+        public void Delete(int? id)
+        {
+            Database.Students.Delete(id.Value);
+            Database.Students.Save();
+        }
+
+        
     }
 }
